@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"modelo","c":"Empleado","l":"setAportes(double)"},{"p":"modelo","c":"Empleado","l":"setSueldoBase(double)"}];updateSearchResults();
