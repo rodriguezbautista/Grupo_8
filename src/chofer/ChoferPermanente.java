@@ -1,5 +1,8 @@
 package chofer;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -8,12 +11,12 @@ import java.util.Date;
  */
 public class ChoferPermanente extends Chofer {
 
-	private static double sueldoBasico;
+	private static double sueldoBasico = 2000;
     private double plusXAntiguedad;
     private double plusXHijos;
     private double aportes;
     private int cantHijos;
-    private Date fechaIngreso;
+    private String fechaIngreso;
 
     /**
      * Constructor para crear un ChoferPermanente.
@@ -25,9 +28,8 @@ public class ChoferPermanente extends Chofer {
      * @param aportes El porcentaje de descuento por aportes jubilatorios.
      * @param fechaIngreso La fecha de ingreso del chofer a la empresa.
      */
-    public ChoferPermanente(String dni, String nombre, double sueldoBasico, double plusXAntiguedad, double plusXHijos, double aportes, int cantHijos, Date fechaIngreso) {
+    public ChoferPermanente(String dni, String nombre, double sueldoBasico, double plusXAntiguedad, double plusXHijos, double aportes, int cantHijos, String fechaIngreso) {
     	super(dni, nombre);
-    	this.sueldoBasico = sueldoBasico;
     	this.plusXAntiguedad = plusXAntiguedad;
     	this.plusXHijos = plusXHijos;
     	this.aportes = aportes;
@@ -41,14 +43,24 @@ public class ChoferPermanente extends Chofer {
      * los pluses por antigüedad y cantidad de hijos, y los descuentos por aportes jubilatorios.
      * @return El sueldo neto del chofer permanente.
     */
+    public int getAntiguedad(String fechaDeIngreso) {
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	  //String fecha="22/11/2000";
+	  LocalDate fechaIngreso = LocalDate.parse(fechaDeIngreso, formato);
+	  LocalDate fechaActual = LocalDate.now();
+
+	  Period antiguedad = Period.between(fechaIngreso, fechaActual);
+	  
+	  return antiguedad.getYears();
+	 }
     @Override
     public double getSueldo() {
         double sueldo = sueldoBasico;
         // Aquí se calcula el sueldo bruto (sueldo basico + pluses).
-        sueldo += sueldoBasico * (plusXAntiguedad / 100);
-        sueldo += sueldoBasico * (plusXHijos / 100)*;
+        sueldo += sueldoBasico * plusXAntiguedad *getAntiguedad(this.fechaIngreso);
+        sueldo += sueldoBasico * plusXHijos * cantHijos;
         // Aquí se le restan los aportes al sueldo bruto.
-        sueldo -= sueldo * (aportes / 100);
+        sueldo -= sueldo * aportes;
         return sueldo;
     }
 
@@ -76,11 +88,11 @@ public class ChoferPermanente extends Chofer {
 		this.aportes = aportes;
 	}
 
-	public Date getFechaIngreso() {
+	public String getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
+	public void setFechaIngreso(String fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 

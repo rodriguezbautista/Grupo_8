@@ -7,9 +7,11 @@ public class Automovil extends Vehiculo {
 	}
 	
 	public int califica(boolean pideBaul, int cantPax) {
-		return pideBaul ? (40*cantPax) : (30*cantPax);
+		if (pideBaul) {
+			return 40*cantPax;
+		} else {
+			return 30*cantPax;
+		}
 	}
 	
-	
-
 }

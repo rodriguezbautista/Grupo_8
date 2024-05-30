@@ -7,7 +7,11 @@ public class Combi extends Vehiculo{
 	}
 	
 	public int califica(boolean pideBaul, int cantPax) {
-		return pideBaul ? (10*cantPax + 100) : (10*cantPax);
+		if (pideBaul) {
+			return 10*cantPax + 100;
+		} else {
+			return 10*cantPax;
+		}
 	}
 	
 }

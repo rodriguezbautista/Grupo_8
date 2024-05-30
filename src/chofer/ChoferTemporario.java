@@ -6,7 +6,7 @@ package chofer;
  */
 public class ChoferTemporario extends Chofer {
 	
-	private static double sueldoBasico;
+	private static double sueldoBasico = 2000;
 	private double aportes;
 	private double plusXCantViajes;
 	private int cantViajes;
@@ -22,7 +22,6 @@ public class ChoferTemporario extends Chofer {
      */
 	public ChoferTemporario(String dni, String nombre, float sueldobasico, float aportes, float plusxcantviajes, int cantviajes) {
 		super(dni, nombre);
-		this.sueldoBasico = sueldobasico;
 		this.aportes = aportes;
 		this.plusXCantViajes = plusxcantviajes;
 		this.cantViajes = cantviajes;
@@ -37,9 +36,9 @@ public class ChoferTemporario extends Chofer {
 	public double getSueldo() {
 		double sueldo = sueldoBasico;
 		// Aquí se calcula el sueldo bruto (sueldo basico + pluses).
-        sueldo += sueldoBasico * (plusXCantViajes / 100) * cantViajes;
+        sueldo += sueldoBasico * plusXCantViajes * cantViajes;
      // Aquí se le restan los aportes al sueldo bruto.
-        sueldo -= sueldo * (aportes / 100);
+        sueldo -= sueldo * aportes;
         return sueldo;
 	}
 
