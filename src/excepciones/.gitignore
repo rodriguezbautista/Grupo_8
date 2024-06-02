@@ -2,3 +2,4 @@
 /NoVehiculoException.class
 /PedidoRechazadoException.class
 /UsuarioExistenteException.class
+/VehiculoInexistenteException.class
