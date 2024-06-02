@@ -9,6 +9,4 @@ public class Moto extends Vehiculo {
 	public int califica(boolean pideBaul, int cantPax) {
 		return 1000;
 	}
-	
-
 }

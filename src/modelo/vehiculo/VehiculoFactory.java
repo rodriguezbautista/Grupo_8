@@ -1,13 +1,21 @@
 package modelo.vehiculo;
 
+import excepciones.VehiculoInexistenteException;
+
 public class VehiculoFactory {
-	public Vehiculo getVehiculo(String tipo,String patente) {
-		if (tipo=="Automovil") 
-			return new Automovil(patente,4,true,true);
-		if (tipo=="Moto")
+	/**
+	 * @param tipo: tipo de vehiculo.<br>
+	 * @param patente: patente del vehiculo.<br>
+	 * <br> Precondicion: Patente distinta de null.<br>
+	 * <br> Excepcion: Vehiculo inexistente.<br>
+	 */
+	public static Vehiculo getVehiculo(String tipo,String patente) throws VehiculoInexistenteException {
+		if (tipo.equalsIgnoreCase("Moto"))
 			return new Moto(patente,1,false,false);
-		if (tipo=="Combi")
+		if (tipo.equalsIgnoreCase("Automovil")) 
+			return new Automovil(patente,4,true,true);
+		if (tipo.equalsIgnoreCase("Combi"))
 			return new Combi(patente,10,false,true);
-		return null;
+		throw new VehiculoInexistenteException(tipo);
 	}
 }

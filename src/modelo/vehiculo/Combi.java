@@ -13,5 +13,4 @@ public class Combi extends Vehiculo{
 			return 10*cantPax;
 		}
 	}
-	
 }

@@ -13,5 +13,4 @@ public class Automovil extends Vehiculo {
 			return 30*cantPax;
 		}
 	}
-	
 }

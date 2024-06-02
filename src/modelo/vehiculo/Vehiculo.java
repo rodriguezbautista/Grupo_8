@@ -17,13 +17,11 @@ public abstract class Vehiculo {
 
 	public Integer getPrioridad(Pedido pedido) {
 		Integer valorPrioridad = null;
-		if(verificaPasajeros(pedido.getCantPersonas()))
-			return valorPrioridad;
-		if(verificaBaul(pedido.usoBaul()))
-			return valorPrioridad;
-		if(verificaMascota(pedido.getMascota()))
-			return valorPrioridad;
-		return valorPrioridad = califica(pedido.usoBaul(), pedido.getCantPersonas());
+		
+		if(verificaPasajeros(pedido.getCantPersonas()) && verificaBaul(pedido.usoBaul()) && verificaMascota(pedido.getMascota()))
+			valorPrioridad = califica(pedido.usoBaul(), pedido.getCantPersonas());
+		
+		return valorPrioridad;
 	}
 	
 	public boolean verificaPasajeros(int cantPasajeros){
