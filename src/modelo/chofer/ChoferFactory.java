@@ -1,5 +1,9 @@
 package modelo.chofer;
 
+import modelo.chofer.ChoferPermanente;
+import modelo.chofer.ChoferTemporario;
+import modelo.chofer.ChoferContratado;
+
 public class ChoferFactory {
 
 	public Chofer getChofer(String nombre, String dni, String tipo) {

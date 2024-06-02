@@ -3,16 +3,20 @@ package modelo.sistema;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import modelo.chofer.Chofer;
+import modelo.usuario.Cliente;
+import modelo.usuario.Empresa;
+import modelo.vehiculo.Vehiculo;
+import modelo.viaje.IViaje;
+
 public class RecursoCompartido extends Observable {
-	private ArrayList<Vehiculos> vehicDisponibles = new ArrayList<Vehiculos>();
-	private ArrayList<Vehiculos> vehicEnUso = new ArrayList<Vehiculos>();
-	private ArrayList<Viajes> viajesSolicitados = new ArrayList<Viajes>();
-	private ArrayList<Viajes> viajesConVehiculo = new ArrayList<Viajes>();
-	private ArrayList<Viajes> viajesIniciados = new ArrayList<Viajes>();
-	private ArrayList<Choferes> choferesDisponibles = new ArrayList<Choferes>();
-	private ArrayList<Choferes> choferesOcupados = new ArrayList<Choferes>();
+	private ArrayList<Vehiculo> vehiculosDisponibles = new ArrayList<Vehiculo>();
+	private ArrayList<IViaje> viajesSolicitados = new ArrayList<IViaje>();
+	private ArrayList<IViaje> viajesConVehiculo = new ArrayList<IViaje>();
+	private ArrayList<IViaje> viajesIniciados = new ArrayList<IViaje>();
 	private boolean simulacionActiva;
 	private InfoVentanaGeneral informacion;
+	private Empresa empresa;
 
 
 	public RecursoCompartido(boolean estadoSimulacion) {
@@ -23,7 +27,7 @@ public class RecursoCompartido extends Observable {
 		while (this.simulacionActiva && this.viajesSolicitados.isEmpty()) {// mientras la simulacion este activa y NO haya viajes solicitados, espera...															
 			try {
 				this.informacion.setEvento("General");
-				this.informacion.setCartel("En espera de slicitudes de viajes");
+				this.informacion.setCartel("En espera de solicitudes de viajes");
 				setChanged();
 				notifyObservers(this.informacion);
 				wait();
@@ -40,7 +44,7 @@ public class RecursoCompartido extends Observable {
 			 * viajes con vehiculo
 			 */
 			this.informacion.setEvento("General");
-			this.informacion.setCartel("---> Se asigna un vehiculo al viaje del cliente " + this.viajesSolicitados[0].getCliente() + " y queda a la espera de ser tomado por un chofer ");
+			this.informacion.setCartel("---> Se asigna un vehiculo al viaje del cliente " + this.viajesSolicitados.get(0).getCliente() + " y queda a la espera de ser tomado por un chofer ");
 			setChanged();
 			notifyObservers(this.informacion);
 		}
@@ -48,12 +52,12 @@ public class RecursoCompartido extends Observable {
 	}
 
 	public synchronized void tomarViaje(Chofer chofer) {
+		this.informacion.setEvento("General");
+		this.informacion.setCartel("Chofer " + chofer.getNombre() + " esta esperando tomar un viaje");
+		setChanged();
+		notifyObservers(this.informacion);
 		while (this.simulacionActiva && this.viajesConVehiculo.isEmpty()) { //mientras la simulacion este activa y NO haya viajes con vehiculo, espera....
 			try {
-				this.informacion.setEvento("General");
-				this.informacion.setCartel("Choferes en espera de tomar viajes");
-				setChanged();
-				notifyObservers(this.informacion);
 				wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -67,12 +71,12 @@ public class RecursoCompartido extends Observable {
 			 * Se asigna el chofer al objeto viaje
 			 */
 			this.informacion.setEvento("Chofer");
-			this.informacion.setCartel("---> El chofer " + chofer.getNombre() + " toma el viaje del cliente " + this.viajesConVehiculo[0].getCliente() + "\n *** El viaje esta iniciado ***");
+			this.informacion.setCartel("---> El chofer " + chofer.getNombre() + " toma el viaje del cliente " + this.viajesConVehiculo.get(0).getCliente().getNombre() + "\n *** El viaje esta iniciado ***");
 		}
 		notifyAll();
 	}
 
-	public synchronized void pagar(Cliente cliente) {
+	public void pagar(Cliente cliente) {
 		if(this.simulacionActiva) {
 			this.informacion.setEvento("Cliente");
 			this.informacion.setCartel("El cliente " + cliente.getNombre() + " pago el viaje");
@@ -85,33 +89,25 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public synchronized void finalizar(Chofer chofer) {
+	public void finalizar(Chofer chofer, IViaje viaje) {
 		if(this.simulacionActiva) {
+			agregarVehiculo(viaje.getVehiculo());
+			empresa.addViaje(viaje);
+			
 			this.informacion.setEvento("Chofer");
 			this.informacion.setCartel("El chofer " + chofer.getNombre() + " finalizo su viaje");
 			setChanged();
 			notifyObservers(this.informacion);
-			/*
-			 * Aca el chofer finaliza el viaje. Se busca en la lista de viajes iniciados con el chofer
-			 * que viene como parametro; se saca dicho viaje de la lista y se pone en la lista de viajes finalizados
-			 * que esta en la empresa.
-			 */
 		}
 		notifyAll();
 	}
 
-	public void agregarVehiculos(ArrayList<Vehiculos> vehiculos) {
-		/*
-		 * aca se agregan todos los vehiculos existentes de la empresa a la coleccion de
-		 * vehiculos disponibles.
-		 */
+	public void agregarVehiculo(Vehiculo vehiculo) {
+		this.vehiculosDisponibles.add(vehiculo);
 	}
 
-	public void agregarChoferes(ArrayList<Choferes> choferes) {
-		/*
-		 * aca se agregan todos los choferes existentes de la empresa a la coleccion de
-		 * choferes disponibles.
-		 */
+	public void agregarViaje(IViaje viaje) {
+		this.viajesSolicitados.add(viaje);
 	}
 
 	public void finalizarSimulacion() {

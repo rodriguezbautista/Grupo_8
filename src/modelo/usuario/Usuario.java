@@ -3,16 +3,12 @@ package modelo.usuario;
 public class Usuario{
 	private String usuario;
 	private String contrasenia;
-    private String nombre;
-    private String apellido;
-    private boolean admin;
+    private String nombreCompleto;
     
-	public Usuario(String usuario, String contrasenia, String nombre, String apellido,boolean admin) {
+	public Usuario(String usuario, String contrasenia, String nombreCompleto) {
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.admin=admin;
+		this.nombreCompleto = nombreCompleto;
 	}
 
 	public String getUsuario() {
@@ -32,29 +28,10 @@ public class Usuario{
 	}
 
 	public String getNombre() {
-		return nombre;
+		return nombreCompleto;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-    
-    
-
+		this.nombreCompleto = nombre;
+	}	
 }

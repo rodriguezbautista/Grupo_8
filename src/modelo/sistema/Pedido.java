@@ -9,7 +9,7 @@ public class Pedido {
 	private String fecha;
 	private String zona;
 	private boolean mascota;
-	private String equipaje;
+	private boolean equipaje;
 	private int cantPersonas;
 	private Cliente cliente;
 	
@@ -22,7 +22,7 @@ public class Pedido {
 	 * @param cantPersonas: cantidad de personas a transportar.<br>
 	 * @param cliente: cliente que realiza el pedido.<br>
 	 */
-	public Pedido(String fecha, String zona, boolean mascota, String equipaje, int cantPersonas, Cliente cliente) {
+	public Pedido(String fecha, String zona, boolean mascota, boolean equipaje, int cantPersonas, Cliente cliente) {
 		this.fecha = fecha;
 		this.zona = zona;
 		this.mascota = mascota;
@@ -40,15 +40,12 @@ public class Pedido {
 	public boolean getMascota() {
 		return mascota;
 	}
-	public String getEquipaje() {
+	public boolean getEquipaje() {
 		return equipaje;
 	}
 	
 	public boolean usoBaul() {
-		if (this.equipaje==("Baul"))
-			return true;
-		else 
-			return false;
+		return this.equipaje;
 	}
 	
 	public int getCantPersonas() {

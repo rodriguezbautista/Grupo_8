@@ -1,7 +1,5 @@
 package modelo.viaje;
 
-import modelo.sistema.Pedido;
-
 /**
  * Clase concreta que modela el comportamiento de los viajes con mascota.<br>
  */

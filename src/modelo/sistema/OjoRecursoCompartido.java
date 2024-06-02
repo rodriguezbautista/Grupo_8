@@ -3,7 +3,7 @@ package modelo.sistema;
 import java.util.Observable;
 import java.util.Observer;
 
-import ventana.VentanaGeneral;
+import vista.VentanaGeneral;
 
 public class OjoRecursoCompartido implements Observer{
 

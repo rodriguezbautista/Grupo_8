@@ -57,6 +57,11 @@ public class Empresa {
 	public void sumaRecaudado(double monto) {
 		this.recaudado += monto;
 	}
+
+
+	public void addViaje(IViaje viaje) {
+		viajes.add(viaje);
+	}
 	
 	
 	
