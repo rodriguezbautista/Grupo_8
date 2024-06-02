@@ -19,10 +19,10 @@ public abstract class Viaje implements IViaje {
 	protected Vehiculo vehiculo;
 	
 	
-	public Viaje(Pedido pedido, Chofer chofer, Vehiculo vehiculo) {
+	public Viaje(Pedido pedido) {
 		this.pedido=pedido;
-		this.chofer=chofer;
-		this.vehiculo=vehiculo;
+		this.chofer=null;
+		this.vehiculo=null;
 	}
 	
     /**

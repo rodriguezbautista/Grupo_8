@@ -1,8 +1,6 @@
 package modelo.viaje;
 
-import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
-import modelo.vehiculo.Vehiculo;
 
 /**
  * Clase concreta que modela las caracteristicas y el comportamiento de los viajes de tipo ViajeZonaEstandar.<br>
@@ -12,14 +10,10 @@ public class ViajeZonaEstandar extends Viaje{
 	/**
 	 * Construye un objeto de tipo ViajeZonaEstandar.La inicializacion de los atributos se delega al constructor de la superclase.<br>
 	 * @param pedido: pedido por el cual se construye un viaje.Detalla las caracteristicas que tendra dicho viaje.<br> 
-	 * @param chofer: chofer asignado al viaje.<br>
-	 * @param vehiculo: vehiculo asignado al viaje.<br>
 	 * <br> Precondicion: pedido diferente de null.<br>
-	 * <br> Precondicion: chofer diferente de null.<br>
-	 * <br> Precondicion: vehiculo diferente de null.<br>
 	 */
-	public ViajeZonaEstandar(Pedido pedido, Chofer chofer, Vehiculo vehiculo) {
-		super(pedido,chofer,vehiculo);
+	public ViajeZonaEstandar(Pedido pedido) {
+		super(pedido);
 	}
 	
 	/**
