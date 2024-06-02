@@ -4,15 +4,16 @@ import java.util.List;
 
 import modelo.chofer.Chofer;
 import modelo.vehiculo.Vehiculo;
+import modelo.viaje.IViaje;
 import modelo.viaje.Viaje;
 
 import java.util.ArrayList;
 
 public class Empresa {
-	private List<Cliente> clientes;
-	private List<Chofer> choferes;
-	private List<Vehiculo> vehiculos;
-	private List<Viaje> viajes;
+	private ArrayList<Cliente> clientes;
+	private ArrayList<Chofer> choferes;
+	private ArrayList<Vehiculo> vehiculos;
+	private ArrayList<IViaje> viajes;
 	private double recaudado = 0;
 	
 	public Empresa() { 
@@ -21,20 +22,32 @@ public class Empresa {
 	}
 	
 
-	public List<Cliente> getClientes() {
+	public ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
 
-	public List<Chofer> getChoferes() {
+	public ArrayList<Chofer> getChoferes() {
 		return choferes;
 	}
 
-	public List<Vehiculo> getVehiculos() {
+	public ArrayList<Vehiculo> getVehiculos() {
 		return vehiculos;
 	}
 
-	public List<Viaje> getViajes() {
+	public ArrayList<IViaje> getViajes() {
 		return viajes;
+	}
+	
+	public ArrayList<IViaje> getViajes(Chofer chofer) {
+		ArrayList<IViaje> viajesChofer = new ArrayList<IViaje>();
+		
+		for(IViaje viaje: viajes) {
+			if (viaje.getChofer() == chofer) {
+				viajesChofer.add(viaje);
+			}
+		}
+		
+		return viajesChofer;
 	}
 
 	public double getRecaudado() {
