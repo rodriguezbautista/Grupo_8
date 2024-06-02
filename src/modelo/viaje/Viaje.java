@@ -67,6 +67,10 @@ public abstract class Viaje implements IViaje {
 		return status;
 	}
 
+	public Chofer getChofer() {
+		return this.chofer;
+	}
+
 	public void setChofer(Chofer chofer) {
 		this.chofer = chofer;
 	}

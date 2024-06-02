@@ -1,5 +1,6 @@
 package modelo.viaje;
 
+import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
 
 /**
@@ -10,5 +11,6 @@ public interface IViaje {
 	double getCosto();
 	Pedido getPedido();
     double getDistanciaReal();
+	Chofer getChofer();
   
 }

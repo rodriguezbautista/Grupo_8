@@ -1,5 +1,6 @@
  package modelo.viaje;
 
+import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
 
  /**
@@ -16,8 +17,12 @@ public abstract class DecoratorViajes implements IViaje {
 	public double getDistanciaReal() {
 		return this.encapsulado.getDistanciaReal();
 	}
-	public Pedido getPedido() {
-		return this.getPedido();
-	}
 	
+	public Pedido getPedido() {
+		return this.encapsulado.getPedido();
+	}
+
+	public Chofer getChofer() {
+		return encapsulado.getChofer();
+	}
 }

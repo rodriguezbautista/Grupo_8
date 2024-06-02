@@ -28,9 +28,4 @@ public class DecoratorConMascota extends DecoratorViajes {
 		
 		return costoEncapsulado+incrXPersona+incrXKm;
 	}
-
-	@Override
-	public Pedido getPedido() {
-		return this.encapsulado.getPedido();
-	}
 }
