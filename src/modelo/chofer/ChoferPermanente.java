@@ -5,6 +5,8 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import modelo.usuario.Empresa;
+
 /**
  * Clase que representa a un chofer permanente de la empresa.
  * Esta clase extiende la clase Chofer y agrega características específicas para los choferes permanentes.
@@ -54,7 +56,7 @@ public class ChoferPermanente extends Chofer {
 	  return antiguedad.getYears();
 	 }
     @Override
-    public double getSueldo() {
+    public double getSueldo(Empresa empresa) {
         double sueldo = sueldoBasico;
         // Aquí se calcula el sueldo bruto (sueldo basico + pluses).
         sueldo += sueldoBasico * plusXAntiguedad *getAntiguedad(this.fechaIngreso);

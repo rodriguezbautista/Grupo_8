@@ -1,5 +1,7 @@
 package modelo.chofer;
 
+import modelo.usuario.Empresa;
+
 /**
  * Clase que representa a un chofer temporario de la empresa.
  * Esta clase extiende la clase Chofer y agrega características específicas para los choferes temporarios.
@@ -9,7 +11,6 @@ public class ChoferTemporario extends Chofer {
 	private static double sueldoBasico = 2000;
 	private double aportes;
 	private double plusXCantViajes;
-	private int cantViajes;
 	
 	/**
      * Constructor para crear un ChoferTemporario.
@@ -24,7 +25,6 @@ public class ChoferTemporario extends Chofer {
 		super(dni, nombre);
 		this.aportes = aportes;
 		this.plusXCantViajes = plusxcantviajes;
-		this.cantViajes = cantviajes;
 	}
 	/**
      * Método para obtener el sueldo de un chofer temporario.
@@ -33,12 +33,15 @@ public class ChoferTemporario extends Chofer {
      * @return El sueldo neto del chofer temporario.
      */
 	@Override
-	public double getSueldo() {
+	public double getSueldo(Empresa empresa) {
 		double sueldo = sueldoBasico;
+		
 		// Aquí se calcula el sueldo bruto (sueldo basico + pluses).
-        sueldo += sueldoBasico * plusXCantViajes * cantViajes;
-     // Aquí se le restan los aportes al sueldo bruto.
+        sueldo += sueldoBasico * plusXCantViajes * empresa.getViajes(this).size();
+        
+        // Aquí se le restan los aportes al sueldo bruto.
         sueldo -= sueldo * aportes;
+        
         return sueldo;
 	}
 
@@ -58,18 +61,7 @@ public class ChoferTemporario extends Chofer {
 		this.plusXCantViajes = plusXCantViajes;
 	}
 
-	public int getCantViajes() {
-		return cantViajes;
-	}
-
-	public void setCantViajes(int cantViajes) {
-		this.cantViajes = cantViajes;
-	}
-
 	public double getSueldoBasico() {
 		return sueldoBasico;
 	}
-	
-	
-
 }

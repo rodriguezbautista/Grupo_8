@@ -1,5 +1,7 @@
 package modelo.chofer;
 
+import modelo.usuario.Empresa;
+
 /**
  * Clase abstracta que representa a un chofer de la empresa.
  * Esta clase define las características comunes para todos los choferes y declara un método abstracto para obtener el sueldo.
@@ -23,7 +25,7 @@ public abstract class Chofer {
      * Este método debe ser implementado por las subclases para calcular el sueldo específico de cada tipo de chofer.
      * @return El sueldo del chofer.
      */
-	public abstract double getSueldo();
+	public abstract double getSueldo(Empresa empresa);
 
 	public String getDni() {
 		return dni;

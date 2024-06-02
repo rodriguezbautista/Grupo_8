@@ -1,12 +1,16 @@
 package modelo.chofer;
 
+import java.util.ArrayList;
+
+import modelo.usuario.Empresa;
+import modelo.viaje.IViaje;
+
 /**
  * Clase que representa a un chofer contratado de la empresa.
  * Esta clase extiende la clase Chofer y agrega características específicas para los choferes contratados.
  */
 public class ChoferContratado extends Chofer {
 	
-	private double recaudado;
 	private double gananciaXViaje;
 	
 	/**
@@ -18,19 +22,22 @@ public class ChoferContratado extends Chofer {
 	public ChoferContratado(String dni, String nombre, double gananciaXViaje) {
 		super(dni, nombre);
 		this.gananciaXViaje = gananciaXViaje;
-		this.recaudado = 0;
 	}
+	
 	/**
 	 * Método para obtener el sueldo de un chofer contratado.
 	 * Este método calcula el sueldo del chofer contratado multiplicando la cantidad recaudada
 	 * por el porcentaje de ganancia por viaje.
 	 * @return El sueldo neto del chofer contratado.
 	 */
-	public double getSueldo() {
-		return this.recaudado * this.gananciaXViaje;
+	public double getSueldo(Empresa empresa) {
+		double recaudado = 0;
+		ArrayList<IViaje> viajes = empresa.getViajes(this);
+		
+		for(IViaje viaje: viajes) {
+			recaudado += viaje.getCosto();
+		}
+		
+		return recaudado * this.gananciaXViaje;
 	}
-	public void recaudaDeViaje(double monto) {
-		this.recaudado += monto;
-	}
-
 }
