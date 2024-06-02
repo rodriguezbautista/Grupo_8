@@ -21,10 +21,8 @@ public class ChoferTemporario extends Chofer {
      * @param plusXCantViajes El porcentaje de aumento por cantidad de viajes realizados.
      * @param cantViajes La cantidad de viajes realizados por el chofer.
      */
-	public ChoferTemporario(String dni, String nombre, float sueldobasico, float aportes, float plusxcantviajes, int cantviajes) {
-		super(dni, nombre);
-		this.aportes = aportes;
-		this.plusXCantViajes = plusxcantviajes;
+	public ChoferTemporario(String nombre, String dni) {
+		super(nombre, dni);
 	}
 	/**
      * Método para obtener el sueldo de un chofer temporario.

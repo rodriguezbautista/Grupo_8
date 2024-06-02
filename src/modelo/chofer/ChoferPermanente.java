@@ -30,13 +30,8 @@ public class ChoferPermanente extends Chofer {
      * @param aportes El porcentaje de descuento por aportes jubilatorios.
      * @param fechaIngreso La fecha de ingreso del chofer a la empresa.
      */
-    public ChoferPermanente(String dni, String nombre, double sueldoBasico, double plusXAntiguedad, double plusXHijos, double aportes, int cantHijos, String fechaIngreso) {
-    	super(dni, nombre);
-    	this.plusXAntiguedad = plusXAntiguedad;
-    	this.plusXHijos = plusXHijos;
-    	this.aportes = aportes;
-    	this.fechaIngreso = fechaIngreso;
-    	this.cantHijos = cantHijos;
+    public ChoferPermanente(String nombre, String dni) {
+    	super(nombre, dni);
     }
     
     /**
