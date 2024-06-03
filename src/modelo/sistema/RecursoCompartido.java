@@ -76,7 +76,7 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public void pagar(Cliente cliente) {
+	public synchronized void pagar(Cliente cliente) {
 		if(this.simulacionActiva) {
 			this.informacion.setEvento("Cliente");
 			this.informacion.setCartel("El cliente " + cliente.getNombre() + " pago el viaje");
@@ -89,7 +89,7 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public void finalizar(Chofer chofer, IViaje viaje) {
+	public synchronized void finalizar(Chofer chofer, IViaje viaje) {
 		if(this.simulacionActiva) {
 			agregarVehiculo(viaje.getVehiculo());
 			empresa.addViaje(viaje);
