@@ -31,16 +31,18 @@ public class Sistema {
 	}
 	
     public Pedido crearPedido(Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
-        List<Vehiculo> vehiculosDisponibles = this.empresa.getVehiculos();
+    	Pedido pedido = null;
+    	List<Vehiculo> vehiculosDisponibles = this.empresa.getVehiculos();
         
         for(Vehiculo vehiculo : vehiculosDisponibles) {
         	if(vehiculo.verificaPasajeros(cantidadPersonas) && vehiculo.verificaBaul(usoBaul) && vehiculo.verificaMascota(llevaMascota)) {
         		//Crea el pedido con la fecha actual
-        		return new Pedido(new SimpleDateFormat("dd-MM-yyyy").format(new Date()), zona, llevaMascota, usoBaul, cantidadPersonas, cliente);
+        		pedido = new Pedido(new SimpleDateFormat("dd-MM-yyyy").format(new Date()), zona, llevaMascota, usoBaul, cantidadPersonas, cliente);
         	}
         }
-        
-        throw new PedidoRechazadoException();
+        if (pedido == null)
+        	throw new PedidoRechazadoException();
+        return pedido;
     }
 
     public void setEmpresa(Empresa empresa) {

@@ -77,7 +77,7 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public synchronized void  pagar(Cliente cliente) {
+	public synchronized void pagar(Cliente cliente) {
 		if(this.simulacionActiva) {
 			this.informacion.setEvento("Cliente");
 			this.informacion.setCartel("El cliente " + cliente.getNombre() + " pago el viaje");
