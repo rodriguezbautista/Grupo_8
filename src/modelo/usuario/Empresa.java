@@ -10,7 +10,7 @@ import modelo.viaje.Viaje;
 import java.util.ArrayList;
 
 public class Empresa {
-	private ArrayList<Cliente> clientes;
+	private ArrayList<ClienteDTO> clientes;
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
@@ -22,7 +22,7 @@ public class Empresa {
 	}
 	
 
-	public ArrayList<Cliente> getClientes() {
+	public ArrayList<ClienteDTO> getClientes() {
 		return clientes;
 	}
 

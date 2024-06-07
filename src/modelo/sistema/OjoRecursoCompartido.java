@@ -22,25 +22,16 @@ public class OjoRecursoCompartido implements Observer{
 		if(o == this.rc) {
 			this.info = (InfoVentanaGeneral) arg;
 			
-			if(this.info.getEvento().equalsIgnoreCase("FinSimulacion")) {
-				this.ventana.appendTextGeneral(this.info.getCartel());
-				this.ventana.appendTextChofer(this.info.getCartel());
-				this.ventana.appendTextCliente(this.info.getCartel());
-			}
-			else {
-			   this.ventana.appendTextGeneral(this.info.getCartel());//muentra en el campo de texto general
-			
-			   if(this.info.getEvento().equalsIgnoreCase("Chofer")) {
-				  this.ventana.appendTextChofer(this.info.getCartel());
-			   }
-			   
-			   if(this.info.getEvento().equalsIgnoreCase("Cliente")) {
-				  this.ventana.appendTextCliente(this.info.getCartel());
-			   }
-			}   
-		}
+			this.ventana.appendTextGeneral(this.info.getMensaje());//muentra en el campo de texto general
+			if(this.info.getChofer().equalsIgnoreCase("Chofer")) {
+				 this.ventana.appendTextChofer(this.info.getMensaje());
+			 } 
+			 if(this.info.getCliente().equalsIgnoreCase("Cliente")) {
+		 	   this.ventana.appendTextCliente(this.info.getMensaje());
+			 }
+	    }   
 		else {
-			throw new IllegalArgumentException();
+		  throw new IllegalArgumentException();
 		}
 	}
 }

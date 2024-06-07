@@ -1,6 +1,6 @@
 package modelo.sistema;
 
-import modelo.usuario.Cliente;
+import modelo.usuario.ClienteDTO;
 
 /**
  * Clase que modela las caracteristicas de un pedido.<br>
@@ -11,7 +11,7 @@ public class Pedido {
 	private boolean mascota;
 	private boolean equipaje;
 	private int cantPersonas;
-	private Cliente cliente;
+	private ClienteDTO cliente;
 	
 	/**
 	 * Construye un objeto de tipo Pedido.<br>
@@ -22,7 +22,7 @@ public class Pedido {
 	 * @param cantPersonas: cantidad de personas a transportar.<br>
 	 * @param cliente: cliente que realiza el pedido.<br>
 	 */
-	public Pedido(String fecha, String zona, boolean mascota, boolean equipaje, int cantPersonas, Cliente cliente) {
+	public Pedido(String fecha, String zona, boolean mascota, boolean equipaje, int cantPersonas, ClienteDTO cliente) {
 		this.fecha = fecha;
 		this.zona = zona;
 		this.mascota = mascota;

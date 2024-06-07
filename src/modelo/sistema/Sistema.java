@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import excepciones.PedidoRechazadoException;
-import modelo.usuario.Cliente;
+import modelo.usuario.ClienteDTO;
 import modelo.usuario.Empresa;
 import modelo.vehiculo.Vehiculo;
 import modelo.viaje.SubsistemaViaje;
@@ -26,12 +26,12 @@ public class Sistema {
 		return instance;
 	}
 
-	public void solicitarViaje(Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
+	public void solicitarViaje(ClienteDTO cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
 		Pedido pedido = crearPedido(cliente, distancia, zona, cantidadPersonas, usoBaul, llevaMascota);
 		recursoCompartido.agregarViaje(SubsistemaViaje.crearViaje(pedido));
 	}
 	
-    public Pedido crearPedido(Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
+    public Pedido crearPedido(ClienteDTO cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
     	Pedido pedido = null;
     	List<Vehiculo> vehiculosDisponibles = this.empresa.getVehiculos();
         

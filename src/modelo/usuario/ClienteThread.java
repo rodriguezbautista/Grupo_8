@@ -1,9 +1,15 @@
 package modelo.usuario;
 
-public abstract class ClienteThread extends Thread {
-	private Cliente cliente;
+import modelo.sistema.Simulacion;
 
-	public ClienteThread(Cliente cliente) {
-		this.cliente = cliente;
+public abstract class ClienteThread extends Thread {
+	private ClienteDTO clienteDTO;
+	
+	public ClienteThread(ClienteDTO clienteDTO) {
+		this.clienteDTO = clienteDTO;
+	}
+	
+	public ClienteDTO getCliente() {
+		return this.clienteDTO;
 	}
 }

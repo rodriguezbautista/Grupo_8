@@ -1,6 +1,6 @@
 package modelo.usuario;
 
-public class Cliente{
+public class ClienteDTO{
 	private String nombre;
 	private String usuario;
 	private String contrasenia;

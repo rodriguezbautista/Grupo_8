@@ -2,7 +2,7 @@ package modelo.viaje;
 
 import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
-import modelo.usuario.Cliente;
+import modelo.usuario.ClienteDTO;
 import modelo.vehiculo.Vehiculo;
 
 /**
@@ -17,6 +17,6 @@ public interface IViaje {
 	void setChofer(Chofer chofer);
 	void setStatus(String string);
 	void setVehiculo(Vehiculo vehiculo);
-	Cliente getCliente();
+	ClienteDTO getCliente();
 	Vehiculo getVehiculo();
 }

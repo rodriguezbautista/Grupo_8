@@ -2,7 +2,7 @@ package modelo.viaje;
 
 import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
-import modelo.usuario.Cliente;
+import modelo.usuario.ClienteDTO;
 import modelo.vehiculo.Vehiculo;
 
 /**
@@ -13,7 +13,7 @@ public abstract class Viaje implements IViaje {
 	protected String status;
 	protected Pedido pedido;
 	protected Chofer chofer;
-	protected Cliente cliente;
+	protected ClienteDTO cliente;
 	protected double distanciaReal,costo;
 	protected static double costoBase=1000;
 	protected Vehiculo vehiculo;
@@ -79,7 +79,7 @@ public abstract class Viaje implements IViaje {
 		this.vehiculo = vehiculo;
 	}
 	
-	public Cliente getCliente() {
+	public ClienteDTO getCliente() {
 		return this.cliente;
 	}
 	
