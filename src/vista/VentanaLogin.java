@@ -21,6 +21,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.Dimension;
 
 public class VentanaLogin extends JFrame implements KeyListener {
 
@@ -38,12 +41,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	private JPanel panel_9;
 	private JPanel panel_19;
 	private JPanel panel_20;
-	private JLabel lblZona;
 	private JTextField textFieldZona;
 	private JLabel lblCantPersonas;
 	private JTextField textFieldCantpersonas;
-	private JPanel panel_23;
-	private JPanel panel_24;
 	private JRadioButton rdbtnEquipajeBaul;
 	private JRadioButton rdbtnMascota;
 	private JPanel panel_25;
@@ -83,6 +83,8 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	private JPanel panel_28;
 	private JPanel panel_27;
 	private JPanel panel_21;
+	private JLabel lblZona;
+	//private Controlador controlador;
 
 	/**
 	 * Launch the application.
@@ -105,7 +107,7 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	 */
 	public VentanaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 635, 412);
+		setBounds(100, 100, 800, 600);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -119,33 +121,35 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		this.panelColumna2 = new JPanel();
 		this.panelColumna2.setBorder(new TitledBorder(null, "Pedido", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		this.panelCentral.add(this.panelColumna2);
-		this.panelColumna2.setLayout(new GridLayout(2, 1, 0, 0));
+		panelColumna2.setLayout(new BoxLayout(panelColumna2, BoxLayout.Y_AXIS));
 		
 		this.panel_9 = new JPanel();
+		panel_9.setMaximumSize(new Dimension(32767, 120));
 		this.panelColumna2.add(this.panel_9);
-		this.panel_9.setLayout(new GridLayout(2, 2, 0, 0));
+		panel_9.setLayout(new BoxLayout(panel_9, BoxLayout.Y_AXIS));
 		
 		this.panel_20 = new JPanel();
 		this.panel_9.add(this.panel_20);
 		this.panel_20.setLayout(new GridLayout(2, 2, 0, 0));
 		
 		this.panel_21 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_21.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
 		this.panel_20.add(this.panel_21);
 		
-		this.panel_24 = new JPanel();
-		this.panel_21.add(this.panel_24);
-		
-		this.lblZona = new JLabel("Zona");
-		this.panel_24.add(this.lblZona);
+		lblZona = new JLabel("Zona");
+		panel_21.add(lblZona);
 		
 		this.panel_27 = new JPanel();
 		this.panel_20.add(this.panel_27);
 		
 		this.textFieldZona = new JTextField();
 		this.panel_27.add(this.textFieldZona);
-		this.textFieldZona.setColumns(10);
+		this.textFieldZona.setColumns(15);
 		
 		this.panel_28 = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) panel_28.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.RIGHT);
 		this.panel_20.add(this.panel_28);
 		
 		this.lblCantPersonas = new JLabel("CantPersonas");
@@ -156,27 +160,28 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		
 		this.textFieldCantpersonas = new JTextField();
 		this.panel_29.add(this.textFieldCantpersonas);
-		this.textFieldCantpersonas.setColumns(10);
+		this.textFieldCantpersonas.setColumns(15);
 		
 		this.panel_19 = new JPanel();
+		panel_19.setMinimumSize(new Dimension(0, 0));
 		this.panel_9.add(this.panel_19);
-		this.panel_19.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		this.rdbtnMascota = new JRadioButton("Mascota");
-		this.panel_19.add(this.rdbtnMascota);
 		
 		this.rdbtnEquipajeBaul = new JRadioButton("EquipajeBaul");
-		this.panel_19.add(this.rdbtnEquipajeBaul);
+		panel_19.setLayout(new BoxLayout(panel_19, BoxLayout.Y_AXIS));
+		panel_19.add(rdbtnMascota);
+		panel_19.add(rdbtnEquipajeBaul);
 		
 		this.panel_8 = new JPanel();
 		this.panelColumna2.add(this.panel_8);
-		this.panel_8.setLayout(new GridLayout(2, 1, 0, 0));
+		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
 		
 		this.panel_25 = new JPanel();
 		this.panel_8.add(this.panel_25);
-		this.panel_25.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		this.btnSolicitarViaje = new JButton("Solicitar Viaje");
+		panel_25.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		this.panel_25.add(this.btnSolicitarViaje);
 		
 		this.panelColumna3 = new JPanel();
@@ -204,12 +209,12 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		this.panelLogeo.setVisible(false);
 		panelLogeo.setBorder(null);
 		contentPane.add(panelLogeo, BorderLayout.NORTH);
-		panelLogeo.setLayout(new GridLayout(2, 0, 0, 0));
+		panelLogeo.setLayout(new BoxLayout(panelLogeo, BoxLayout.Y_AXIS));
 		
 		panel1Columna1 = new JPanel();
 		panel1Columna1.setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelLogeo.add(panel1Columna1);
-		panel1Columna1.setLayout(new GridLayout(2, 1, 0, 0));
+		panel1Columna1.setLayout(new BoxLayout(panel1Columna1, BoxLayout.Y_AXIS));
 		
 		panel_1 = new JPanel();
 		panel1Columna1.add(panel_1);
@@ -243,9 +248,11 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		
 		panel_6 = new JPanel();
 		panel1Columna1.add(panel_6);
+		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		panel_7 = new JPanel();
 		panel_6.add(panel_7);
+		panel_7.setLayout(new BoxLayout(panel_7, BoxLayout.X_AXIS));
 		
 		btnLogin = new JButton("Login");
 		panel_7.add(btnLogin);
@@ -253,7 +260,7 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel2Columna2 = new JPanel();
 		panel2Columna2.setBorder(new TitledBorder(null, "Registrarse", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelLogeo.add(panel2Columna2);
-		panel2Columna2.setLayout(new GridLayout(2, 1, 0, 0));
+		panel2Columna2.setLayout(new BoxLayout(panel2Columna2, BoxLayout.Y_AXIS));
 		
 		panel_10 = new JPanel();
 		panel2Columna2.add(panel_10);
