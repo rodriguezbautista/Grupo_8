@@ -79,6 +79,11 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 	private JPanel panel_17;
 	private JPanel panel_18;
 	private JButton btnRegistrarse;
+	private JPanel panel_29;
+	private JPanel panel_28;
+	private JPanel panel_27;
+	private JPanel panel_21;
+	private JPanel panel_30;
 
 	/**
 	 * Launch the application.
@@ -109,7 +114,7 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		
 		this.panelCentral = new JPanel();
-		panelCentral.setVisible(false);
+		this.panelCentral.setVisible(false);
 		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
 		this.panelCentral.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -131,16 +136,6 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		
 		this.panel_30 = new JPanel();
 		this.panel_22.add(this.panel_30);
-		
-		this.lblFecha = new JLabel("Fecha");
-		this.panel_30.add(this.lblFecha);
-		
-		this.panel_23 = new JPanel();
-		this.panel_20.add(this.panel_23);
-		
-		this.textFieldFecha = new JTextField();
-		this.panel_23.add(this.textFieldFecha);
-		this.textFieldFecha.setColumns(10);
 		
 		this.panel_21 = new JPanel();
 		this.panel_20.add(this.panel_21);
@@ -212,7 +207,7 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.scrollPane.setViewportView(this.textArea);
 		
 		this.panelSur = new JPanel();
-		panelSur.setVisible(false);
+		this.panelSur.setVisible(false);
 		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
 		this.panelSur.setLayout(new GridLayout(1, 0, 0, 0));
 		
