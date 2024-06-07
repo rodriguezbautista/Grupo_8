@@ -1,27 +1,36 @@
 package modelo.sistema;
 
+import modelo.chofer.Chofer;
+import modelo.usuario.Cliente;
+
 public class InfoVentanaGeneral {
-	private String evento;
-	private String cartel;
-	
-	public InfoVentanaGeneral(String evento, String cartel) {
-		this.evento = evento;
-		this.cartel = cartel;
-	}
-	
-	public String getEvento() {
-		return this.evento;
-	}
-	
-	public String getCartel() {
-		return this.cartel;
+	private String chofer;
+	private String cliente;
+	private String mensaje;
+
+	public String getChofer() {
+		return chofer;
 	}
 
-	public void setEvento(String evento) {
-		this.evento = evento;
+	public String getCliente() {
+		return cliente;
 	}
 
-	public void setCartel(String cartel) {
-		this.cartel = cartel;
+	public String getMensaje() {
+		return mensaje;
 	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public void setChofer(String chofer) {
+		this.chofer = chofer;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 }
