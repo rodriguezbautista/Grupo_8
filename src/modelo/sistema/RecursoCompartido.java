@@ -52,12 +52,13 @@ public class RecursoCompartido extends Observable {
 	}
 
 	public synchronized void tomarViaje(Chofer chofer) {
-		this.informacion.setEvento("General");
-		this.informacion.setCartel("Chofer " + chofer.getNombre() + " esta esperando tomar un viaje");
-		setChanged();
-		notifyObservers(this.informacion);
+		
 		while (this.simulacionActiva && this.viajesConVehiculo.isEmpty()) { //mientras la simulacion este activa y NO haya viajes con vehiculo, espera....
 			try {
+				this.informacion.setEvento("General");
+				this.informacion.setCartel("Chofer " + chofer.getNombre() + " esta esperando tomar un viaje");
+				setChanged();
+				notifyObservers(this.informacion);
 				wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -76,7 +77,7 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public void pagar(Cliente cliente) {
+	public synchronized void  pagar(Cliente cliente) {
 		if(this.simulacionActiva) {
 			this.informacion.setEvento("Cliente");
 			this.informacion.setCartel("El cliente " + cliente.getNombre() + " pago el viaje");
@@ -89,7 +90,7 @@ public class RecursoCompartido extends Observable {
 		notifyAll();
 	}
 
-	public void finalizar(Chofer chofer, IViaje viaje) {
+	public synchronized void finalizar(Chofer chofer, IViaje viaje) {
 		if(this.simulacionActiva) {
 			agregarVehiculo(viaje.getVehiculo());
 			empresa.addViaje(viaje);

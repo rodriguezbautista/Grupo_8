@@ -14,8 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
 
-public class VentanaLogin extends JFrame {
+public class VentanaLogin extends JFrame implements ActionListener, KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -36,7 +40,6 @@ public class VentanaLogin extends JFrame {
 	private JPanel panel_3;
 	private JLabel lblContraseña;
 	private JLabel lblUsuario;
-	private JTextField textFieldUsuario;
 	private JTextField textFieldContraseña;
 	private JPanel panel_4;
 	private JPanel panel_5;
@@ -66,7 +69,6 @@ public class VentanaLogin extends JFrame {
 	private JTextField textFieldZona;
 	private JLabel lblCantPersonas;
 	private JTextField textFieldCantpersonas;
-	private JPanel panel_21;
 	private JPanel panel_22;
 	private JPanel panel_23;
 	private JPanel panel_24;
@@ -76,6 +78,14 @@ public class VentanaLogin extends JFrame {
 	private JPanel panel_26;
 	private JButton btnSolicitarViaje;
 	private JButton btnSolicitarPedido;
+	private JPanel panel_21;
+	private JPanel panel_27;
+	private JPanel panel_28;
+	private JPanel panel_29;
+	private JLabel lblFecha;
+	private JPanel panel_30;
+	private JTextField textFieldFecha;
+	private JTextField textFieldUsuario;
 
 	/**
 	 * Launch the application.
@@ -156,6 +166,7 @@ public class VentanaLogin extends JFrame {
 		this.panel_2.add(this.panel_3);
 		
 		this.btnLogin = new JButton("Login");
+		this.btnLogin.addActionListener(this);
 		this.panel_3.add(this.btnLogin);
 		
 		this.panel2Columna2 = new JPanel();
@@ -183,7 +194,7 @@ public class VentanaLogin extends JFrame {
 		this.panel_14 = new JPanel();
 		this.panel_11.add(this.panel_14);
 		
-		this.lblRegUsuario = new JLabel("Usuario");
+		this.lblRegUsuario = new JLabel("Nombre de Usuario");
 		this.panel_14.add(this.lblRegUsuario);
 		
 		this.panel_15 = new JPanel();
@@ -213,6 +224,7 @@ public class VentanaLogin extends JFrame {
 		this.panel_10.add(this.panel_18);
 		
 		this.btnRegistrarse = new JButton("Registrarse");
+		this.btnRegistrarse.addActionListener(this);
 		this.panel_18.add(this.btnRegistrarse);
 		
 		this.panelColumna2 = new JPanel();
@@ -226,32 +238,51 @@ public class VentanaLogin extends JFrame {
 		
 		this.panel_20 = new JPanel();
 		this.panel_9.add(this.panel_20);
-		this.panel_20.setLayout(new GridLayout(2, 2, 0, 0));
-		
-		this.panel_21 = new JPanel();
-		this.panel_20.add(this.panel_21);
-		
-		this.lblZona = new JLabel("Zona");
-		this.panel_21.add(this.lblZona);
+		this.panel_20.setLayout(new GridLayout(3, 3, 0, 0));
 		
 		this.panel_22 = new JPanel();
 		this.panel_20.add(this.panel_22);
 		
-		this.textFieldZona = new JTextField();
-		this.panel_22.add(this.textFieldZona);
-		this.textFieldZona.setColumns(10);
+		this.panel_30 = new JPanel();
+		this.panel_22.add(this.panel_30);
+		
+		this.lblFecha = new JLabel("Fecha");
+		this.panel_30.add(this.lblFecha);
 		
 		this.panel_23 = new JPanel();
 		this.panel_20.add(this.panel_23);
 		
-		this.lblCantPersonas = new JLabel("CantPersonas");
-		this.panel_23.add(this.lblCantPersonas);
+		this.textFieldFecha = new JTextField();
+		this.panel_23.add(this.textFieldFecha);
+		this.textFieldFecha.setColumns(10);
+		
+		this.panel_21 = new JPanel();
+		this.panel_20.add(this.panel_21);
 		
 		this.panel_24 = new JPanel();
-		this.panel_20.add(this.panel_24);
+		this.panel_21.add(this.panel_24);
+		
+		this.lblZona = new JLabel("Zona");
+		this.panel_24.add(this.lblZona);
+		
+		this.panel_27 = new JPanel();
+		this.panel_20.add(this.panel_27);
+		
+		this.textFieldZona = new JTextField();
+		this.panel_27.add(this.textFieldZona);
+		this.textFieldZona.setColumns(10);
+		
+		this.panel_28 = new JPanel();
+		this.panel_20.add(this.panel_28);
+		
+		this.lblCantPersonas = new JLabel("CantPersonas");
+		this.panel_28.add(this.lblCantPersonas);
+		
+		this.panel_29 = new JPanel();
+		this.panel_20.add(this.panel_29);
 		
 		this.textFieldCantpersonas = new JTextField();
-		this.panel_24.add(this.textFieldCantpersonas);
+		this.panel_29.add(this.textFieldCantpersonas);
 		this.textFieldCantpersonas.setColumns(10);
 		
 		this.panel_19 = new JPanel();
@@ -273,9 +304,11 @@ public class VentanaLogin extends JFrame {
 		this.panel_25.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		this.btnSolicitarPedido = new JButton("Solicitar Pedido");
+		this.btnSolicitarPedido.addActionListener(this);
 		this.panel_25.add(this.btnSolicitarPedido);
 		
 		this.btnSolicitarViaje = new JButton("Solicitar Viaje");
+		this.btnSolicitarViaje.addActionListener(this);
 		this.panel_25.add(this.btnSolicitarViaje);
 		
 		this.panel_26 = new JPanel();
@@ -299,8 +332,30 @@ public class VentanaLogin extends JFrame {
 		this.panel = new JPanel();
 		this.panelSur.add(this.panel);
 		
-		this.btnFinalizarSimulacion = new JButton("Finalizar Simulacion");
+		this.btnFinalizarSimulacion = new JButton("Finalizar Pedidos");
+		this.btnFinalizarSimulacion.addActionListener(this);
 		this.panel.add(this.btnFinalizarSimulacion);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

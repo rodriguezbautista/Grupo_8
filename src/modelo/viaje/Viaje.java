@@ -79,4 +79,11 @@ public abstract class Viaje implements IViaje {
 		this.vehiculo = vehiculo;
 	}
 	
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+	
+	public Vehiculo getVehiculo() {
+		return this.vehiculo;
+	}
 }
