@@ -10,6 +10,9 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+
+import controlador.Controlador;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -19,7 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaLogin extends JFrame implements ActionListener, KeyListener {
+public class VentanaLogin extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -80,7 +83,6 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 	private JPanel panel_28;
 	private JPanel panel_27;
 	private JPanel panel_21;
-	//private Controlador controlador;
 
 	/**
 	 * Launch the application.
@@ -175,7 +177,6 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.panel_25.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		this.btnSolicitarViaje = new JButton("Solicitar Viaje");
-		this.btnSolicitarViaje.addActionListener(this);
 		this.panel_25.add(this.btnSolicitarViaje);
 		
 		this.panelColumna3 = new JPanel();
@@ -197,7 +198,6 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.panelSur.add(this.panel);
 		
 		this.btnFinalizarPedidos = new JButton("Finalizar Pedidos");
-		this.btnFinalizarPedidos.addActionListener(this);
 		this.panel.add(this.btnFinalizarPedidos);
 		
 		panelLogeo = new JPanel();
@@ -314,26 +314,31 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equalsIgnoreCase("Finalizar Pedidos")) {
-			this.btnSolicitarViaje.setEnabled(false);
-			this.textFieldZona.setEditable(false);
-			this.textFieldCantpersonas.setEditable(false);
-			this.rdbtnEquipajeBaul.setEnabled(false);
-			this.rdbtnMascota.setEnabled(false);
-			this.textArea.append("--------- SOLICITUD DE PEDIDOS FINALIZADA ---------");
-			this.btnFinalizarPedidos.setEnabled(false);
-		}
-		else if (e.getActionCommand().equalsIgnoreCase("Solicitar Viaje")) {
-			this.textArea.append("Viaje Solicitado\n");
-			this.textFieldZona.setText("");
-			this.textFieldCantpersonas.setText("");
-			this.rdbtnEquipajeBaul.setSelected(false);
-			this.rdbtnMascota.setSelected(false);
-			this.btnSolicitarViaje.setEnabled(false);
-		}
-		
 	
+	public void limpiarCamposPedido() {
+		this.textFieldZona.setText("");
+		this.textFieldCantpersonas.setText("");
+		this.rdbtnEquipajeBaul.setSelected(false);
+		this.rdbtnMascota.setSelected(false);
+		this.btnSolicitarViaje.setEnabled(false);
+	}
+	
+	public void appendLog(String mensaje) {
+		this.textArea.append(mensaje);
+	}
+	
+	public void deshabilitarBotones() {
+		this.btnSolicitarViaje.setEnabled(false);
+		this.textFieldZona.setEditable(false);
+		this.textFieldCantpersonas.setEditable(false);
+		this.rdbtnEquipajeBaul.setEnabled(false);
+		this.rdbtnMascota.setEnabled(false);
+		this.btnFinalizarPedidos.setEnabled(false);
+	}
+	
+	public void setActionListener(ActionListener actionlistener) {
+		this.btnFinalizarPedidos.addActionListener(actionlistener);
+		this.btnSolicitarViaje.addActionListener(actionlistener);
 	}
 
 	@Override
