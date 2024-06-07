@@ -23,43 +23,12 @@ public class VentanaLogin extends JFrame {
 	private JPanel panelSur;
 	private JButton btnFinalizarSimulacion;
 	private JPanel panel;
-	private JPanel panelColumna1;
 	private JPanel panelColumna2;
 	private JPanel panelColumna3;
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
-	private JPanel panel2Columna2;
-	private JPanel panel1Columna1;
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JButton btnLogin;
-	private JPanel panel_3;
-	private JLabel lblContraseña;
-	private JLabel lblUsuario;
-	private JTextField textFieldUsuario;
-	private JTextField textFieldContraseña;
-	private JPanel panel_4;
-	private JPanel panel_5;
-	private JPanel panel_6;
-	private JPanel panel_7;
 	private JPanel panel_8;
 	private JPanel panel_9;
-	private JPanel panel_10;
-	private JPanel panel_11;
-	private JLabel lblRegNombre;
-	private JLabel lblRegUsuario;
-	private JTextField textFieldRegNombre;
-	private JTextField textFieldRegUsuario;
-	private JLabel lblRegContraseña;
-	private JTextField textFieldRegContraseña;
-	private JPanel panel_12;
-	private JPanel panel_13;
-	private JPanel panel_14;
-	private JPanel panel_15;
-	private JPanel panel_16;
-	private JPanel panel_17;
-	private JButton btnRegistrarse;
-	private JPanel panel_18;
 	private JPanel panel_19;
 	private JPanel panel_20;
 	private JLabel lblZona;
@@ -76,6 +45,37 @@ public class VentanaLogin extends JFrame {
 	private JPanel panel_26;
 	private JButton btnSolicitarViaje;
 	private JButton btnSolicitarPedido;
+	private JPanel panelLogeo;
+	private JPanel panel1Columna1;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JLabel lblUsuario;
+	private JPanel panel_3;
+	private JTextField textField;
+	private JPanel panel_4;
+	private JLabel lblContraseña;
+	private JPanel panel_5;
+	private JTextField textField_1;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JButton btnLogin;
+	private JPanel panel2Columna2;
+	private JPanel panel_10;
+	private JPanel panel_11;
+	private JLabel lblRegNombre;
+	private JPanel panel_12;
+	private JTextField textField_2;
+	private JPanel panel_13;
+	private JLabel lblRegUsuario;
+	private JPanel panel_14;
+	private JTextField textField_3;
+	private JPanel panel_15;
+	private JLabel lblRegContraseña;
+	private JPanel panel_16;
+	private JTextField textField_4;
+	private JPanel panel_17;
+	private JPanel panel_18;
+	private JButton btnRegistrarse;
 
 	/**
 	 * Launch the application.
@@ -106,114 +106,9 @@ public class VentanaLogin extends JFrame {
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		
 		this.panelCentral = new JPanel();
+		panelCentral.setVisible(false);
 		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
 		this.panelCentral.setLayout(new GridLayout(1, 0, 0, 0));
-		
-		this.panelColumna1 = new JPanel();
-		this.panelColumna1.setBorder(null);
-		this.panelCentral.add(this.panelColumna1);
-		this.panelColumna1.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		this.panel1Columna1 = new JPanel();
-		this.panel1Columna1.setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		this.panelColumna1.add(this.panel1Columna1);
-		this.panel1Columna1.setLayout(new GridLayout(2, 1, 0, 0));
-		
-		this.panel_1 = new JPanel();
-		this.panel1Columna1.add(this.panel_1);
-		this.panel_1.setLayout(new GridLayout(2, 2, 0, 0));
-		
-		this.panel_4 = new JPanel();
-		this.panel_1.add(this.panel_4);
-		
-		this.lblUsuario = new JLabel("Usuario");
-		this.panel_4.add(this.lblUsuario);
-		
-		this.panel_6 = new JPanel();
-		this.panel_1.add(this.panel_6);
-		
-		this.textFieldUsuario = new JTextField();
-		this.panel_6.add(this.textFieldUsuario);
-		this.textFieldUsuario.setColumns(10);
-		
-		this.panel_5 = new JPanel();
-		this.panel_1.add(this.panel_5);
-		
-		this.lblContraseña = new JLabel("Contraseña");
-		this.panel_5.add(this.lblContraseña);
-		
-		this.panel_7 = new JPanel();
-		this.panel_1.add(this.panel_7);
-		
-		this.textFieldContraseña = new JTextField();
-		this.panel_7.add(this.textFieldContraseña);
-		this.textFieldContraseña.setColumns(10);
-		
-		this.panel_2 = new JPanel();
-		this.panel1Columna1.add(this.panel_2);
-		
-		this.panel_3 = new JPanel();
-		this.panel_2.add(this.panel_3);
-		
-		this.btnLogin = new JButton("Login");
-		this.panel_3.add(this.btnLogin);
-		
-		this.panel2Columna2 = new JPanel();
-		this.panel2Columna2.setBorder(new TitledBorder(null, "Registrarse", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		this.panelColumna1.add(this.panel2Columna2);
-		this.panel2Columna2.setLayout(new GridLayout(2, 1, 0, 0));
-		
-		this.panel_11 = new JPanel();
-		this.panel2Columna2.add(this.panel_11);
-		this.panel_11.setLayout(new GridLayout(3, 2, 0, 0));
-		
-		this.panel_12 = new JPanel();
-		this.panel_11.add(this.panel_12);
-		
-		this.lblRegNombre = new JLabel("Nombre");
-		this.panel_12.add(this.lblRegNombre);
-		
-		this.panel_13 = new JPanel();
-		this.panel_11.add(this.panel_13);
-		
-		this.textFieldRegNombre = new JTextField();
-		this.panel_13.add(this.textFieldRegNombre);
-		this.textFieldRegNombre.setColumns(10);
-		
-		this.panel_14 = new JPanel();
-		this.panel_11.add(this.panel_14);
-		
-		this.lblRegUsuario = new JLabel("Usuario");
-		this.panel_14.add(this.lblRegUsuario);
-		
-		this.panel_15 = new JPanel();
-		this.panel_11.add(this.panel_15);
-		
-		this.textFieldRegUsuario = new JTextField();
-		this.panel_15.add(this.textFieldRegUsuario);
-		this.textFieldRegUsuario.setColumns(10);
-		
-		this.panel_16 = new JPanel();
-		this.panel_11.add(this.panel_16);
-		
-		this.lblRegContraseña = new JLabel("Contraseña");
-		this.panel_16.add(this.lblRegContraseña);
-		
-		this.panel_17 = new JPanel();
-		this.panel_11.add(this.panel_17);
-		
-		this.textFieldRegContraseña = new JTextField();
-		this.panel_17.add(this.textFieldRegContraseña);
-		this.textFieldRegContraseña.setColumns(10);
-		
-		this.panel_10 = new JPanel();
-		this.panel2Columna2.add(this.panel_10);
-		
-		this.panel_18 = new JPanel();
-		this.panel_10.add(this.panel_18);
-		
-		this.btnRegistrarse = new JButton("Registrarse");
-		this.panel_18.add(this.btnRegistrarse);
 		
 		this.panelColumna2 = new JPanel();
 		this.panelColumna2.setBorder(new TitledBorder(null, "Pedido", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -293,6 +188,7 @@ public class VentanaLogin extends JFrame {
 		this.scrollPane.setViewportView(this.textArea);
 		
 		this.panelSur = new JPanel();
+		panelSur.setVisible(false);
 		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
 		this.panelSur.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -301,6 +197,112 @@ public class VentanaLogin extends JFrame {
 		
 		this.btnFinalizarSimulacion = new JButton("Finalizar Simulacion");
 		this.panel.add(this.btnFinalizarSimulacion);
+		
+		panelLogeo = new JPanel();
+		panelLogeo.setBorder(null);
+		contentPane.add(panelLogeo, BorderLayout.NORTH);
+		panelLogeo.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		panel1Columna1 = new JPanel();
+		panel1Columna1.setBorder(new TitledBorder(null, "Login", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelLogeo.add(panel1Columna1);
+		panel1Columna1.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		panel_1 = new JPanel();
+		panel1Columna1.add(panel_1);
+		panel_1.setLayout(new GridLayout(2, 2, 0, 0));
+		
+		panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		
+		lblUsuario = new JLabel("Usuario");
+		panel_2.add(lblUsuario);
+		
+		panel_3 = new JPanel();
+		panel_1.add(panel_3);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		panel_3.add(textField);
+		
+		panel_4 = new JPanel();
+		panel_1.add(panel_4);
+		
+		lblContraseña = new JLabel("Contraseña");
+		panel_4.add(lblContraseña);
+		
+		panel_5 = new JPanel();
+		panel_1.add(panel_5);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		panel_5.add(textField_1);
+		
+		panel_6 = new JPanel();
+		panel1Columna1.add(panel_6);
+		
+		panel_7 = new JPanel();
+		panel_6.add(panel_7);
+		
+		btnLogin = new JButton("Login");
+		panel_7.add(btnLogin);
+		
+		panel2Columna2 = new JPanel();
+		panel2Columna2.setBorder(new TitledBorder(null, "Registrarse", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelLogeo.add(panel2Columna2);
+		panel2Columna2.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		panel_10 = new JPanel();
+		panel2Columna2.add(panel_10);
+		panel_10.setLayout(new GridLayout(3, 2, 0, 0));
+		
+		panel_11 = new JPanel();
+		panel_10.add(panel_11);
+		
+		lblRegNombre = new JLabel("Nombre");
+		panel_11.add(lblRegNombre);
+		
+		panel_12 = new JPanel();
+		panel_10.add(panel_12);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		panel_12.add(textField_2);
+		
+		panel_13 = new JPanel();
+		panel_10.add(panel_13);
+		
+		lblRegUsuario = new JLabel("Usuario");
+		panel_13.add(lblRegUsuario);
+		
+		panel_14 = new JPanel();
+		panel_10.add(panel_14);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		panel_14.add(textField_3);
+		
+		panel_15 = new JPanel();
+		panel_10.add(panel_15);
+		
+		lblRegContraseña = new JLabel("Contraseña");
+		panel_15.add(lblRegContraseña);
+		
+		panel_16 = new JPanel();
+		panel_10.add(panel_16);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		panel_16.add(textField_4);
+		
+		panel_17 = new JPanel();
+		panel2Columna2.add(panel_17);
+		
+		panel_18 = new JPanel();
+		panel_17.add(panel_18);
+		
+		btnRegistrarse = new JButton("Registrarse");
+		panel_18.add(btnRegistrarse);
 	}
 
 }
