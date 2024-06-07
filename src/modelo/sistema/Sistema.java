@@ -26,7 +26,8 @@ public class Sistema {
 		return instance;
 	}
 
-	public void crearViaje(Pedido pedido) throws PedidoRechazadoException {
+	public void solicitarViaje(Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
+		Pedido pedido = crearPedido(cliente, distancia, zona, cantidadPersonas, usoBaul, llevaMascota);
 		recursoCompartido.agregarViaje(SubsistemaViaje.crearViaje(pedido));
 	}
 	
