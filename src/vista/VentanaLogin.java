@@ -25,7 +25,7 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 	private JPanel contentPane;
 	private JPanel panelCentral;
 	private JPanel panelSur;
-	private JButton btnFinalizarSimulacion;
+	private JButton btnFinalizarPedidos;
 	private JPanel panel;
 	private JPanel panelColumna2;
 	private JPanel panelColumna3;
@@ -39,15 +39,12 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 	private JTextField textFieldZona;
 	private JLabel lblCantPersonas;
 	private JTextField textFieldCantpersonas;
-	private JPanel panel_22;
 	private JPanel panel_23;
 	private JPanel panel_24;
 	private JRadioButton rdbtnEquipajeBaul;
 	private JRadioButton rdbtnMascota;
 	private JPanel panel_25;
-	private JPanel panel_26;
 	private JButton btnSolicitarViaje;
-	private JButton btnSolicitarPedido;
 	private JPanel panelLogeo;
 	private JPanel panel1Columna1;
 	private JPanel panel_1;
@@ -83,7 +80,7 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 	private JPanel panel_28;
 	private JPanel panel_27;
 	private JPanel panel_21;
-	private JPanel panel_30;
+	//private Controlador controlador;
 
 	/**
 	 * Launch the application.
@@ -114,7 +111,6 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		
 		this.panelCentral = new JPanel();
-		this.panelCentral.setVisible(false);
 		this.contentPane.add(this.panelCentral, BorderLayout.CENTER);
 		this.panelCentral.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -129,13 +125,7 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		
 		this.panel_20 = new JPanel();
 		this.panel_9.add(this.panel_20);
-		this.panel_20.setLayout(new GridLayout(3, 3, 0, 0));
-		
-		this.panel_22 = new JPanel();
-		this.panel_20.add(this.panel_22);
-		
-		this.panel_30 = new JPanel();
-		this.panel_22.add(this.panel_30);
+		this.panel_20.setLayout(new GridLayout(2, 2, 0, 0));
 		
 		this.panel_21 = new JPanel();
 		this.panel_20.add(this.panel_21);
@@ -182,18 +172,11 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		
 		this.panel_25 = new JPanel();
 		this.panel_8.add(this.panel_25);
-		this.panel_25.setLayout(new GridLayout(2, 1, 0, 0));
-		
-		this.btnSolicitarPedido = new JButton("Solicitar Pedido");
-		this.btnSolicitarPedido.addActionListener(this);
-		this.panel_25.add(this.btnSolicitarPedido);
+		this.panel_25.setLayout(new GridLayout(1, 1, 0, 0));
 		
 		this.btnSolicitarViaje = new JButton("Solicitar Viaje");
 		this.btnSolicitarViaje.addActionListener(this);
 		this.panel_25.add(this.btnSolicitarViaje);
-		
-		this.panel_26 = new JPanel();
-		this.panel_8.add(this.panel_26);
 		
 		this.panelColumna3 = new JPanel();
 		this.panelColumna3.setBorder(new TitledBorder(null, "Estado del Viaje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -207,18 +190,18 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		this.scrollPane.setViewportView(this.textArea);
 		
 		this.panelSur = new JPanel();
-		this.panelSur.setVisible(false);
 		this.contentPane.add(this.panelSur, BorderLayout.SOUTH);
 		this.panelSur.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		this.panel = new JPanel();
 		this.panelSur.add(this.panel);
 		
-		this.btnFinalizarSimulacion = new JButton("Finalizar Pedidos");
-		this.btnFinalizarSimulacion.addActionListener(this);
-		this.panel.add(this.btnFinalizarSimulacion);
+		this.btnFinalizarPedidos = new JButton("Finalizar Pedidos");
+		this.btnFinalizarPedidos.addActionListener(this);
+		this.panel.add(this.btnFinalizarPedidos);
 		
 		panelLogeo = new JPanel();
+		this.panelLogeo.setVisible(false);
 		panelLogeo.setBorder(null);
 		contentPane.add(panelLogeo, BorderLayout.NORTH);
 		panelLogeo.setLayout(new GridLayout(2, 0, 0, 0));
@@ -323,15 +306,40 @@ public class VentanaLogin extends JFrame implements ActionListener, KeyListener 
 		
 		btnRegistrarse = new JButton("Registrarse");
 		panel_18.add(btnRegistrarse);
+		
+		//aparte
+		this.btnSolicitarViaje.setEnabled(false);
+		this.textFieldZona.addKeyListener(this);
+		this.textFieldCantpersonas.addKeyListener(this);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equalsIgnoreCase("Finalizar Pedidos")) {
+			this.btnSolicitarViaje.setEnabled(false);
+			this.textFieldZona.setEditable(false);
+			this.textFieldCantpersonas.setEditable(false);
+			this.rdbtnEquipajeBaul.setEnabled(false);
+			this.rdbtnMascota.setEnabled(false);
+			this.textArea.append("--------- SOLICITUD DE PEDIDOS FINALIZADA ---------");
+			this.btnFinalizarPedidos.setEnabled(false);
+		}
+		else if (e.getActionCommand().equalsIgnoreCase("Solicitar Viaje")) {
+			this.textArea.append("Viaje Solicitado\n");
+			this.textFieldZona.setText("");
+			this.textFieldCantpersonas.setText("");
+			this.rdbtnEquipajeBaul.setSelected(false);
+			this.rdbtnMascota.setSelected(false);
+			this.btnSolicitarViaje.setEnabled(false);
+		}
 		
+	
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		
+		boolean habilitado = !(this.textFieldZona.getText().isEmpty()) && !(this.textFieldCantpersonas.getText().isEmpty());
+		this.btnSolicitarViaje.setEnabled(habilitado);
 	}
 	
 	@Override
