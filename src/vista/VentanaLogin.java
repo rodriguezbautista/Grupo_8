@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import controlador.Controlador;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +24,7 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
 
-public class VentanaLogin extends JFrame implements KeyListener {
+public class VentanaLogin extends JFrame implements KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -54,11 +53,11 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	private JPanel panel_2;
 	private JLabel lblUsuario;
 	private JPanel panel_3;
-	private JTextField textField;
+	private JTextField textFieldLoginUsuario;
 	private JPanel panel_4;
 	private JLabel lblContraseña;
 	private JPanel panel_5;
-	private JTextField textField_1;
+	private JTextField textFieldLoginContras;
 	private JPanel panel_6;
 	private JPanel panel_7;
 	private JButton btnLogin;
@@ -67,15 +66,15 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	private JPanel panel_11;
 	private JLabel lblRegNombre;
 	private JPanel panel_12;
-	private JTextField textField_2;
+	private JTextField textFieldRgeistNbre;
 	private JPanel panel_13;
 	private JLabel lblRegUsuario;
 	private JPanel panel_14;
-	private JTextField textField_3;
+	private JTextField textFieldRegistUsuario;
 	private JPanel panel_15;
 	private JLabel lblRegContraseña;
 	private JPanel panel_16;
-	private JTextField textField_4;
+	private JTextField textFieldRegistContras;
 	private JPanel panel_17;
 	private JPanel panel_18;
 	private JButton btnRegistrarse;
@@ -206,7 +205,6 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		this.panel.add(this.btnFinalizarPedidos);
 		
 		panelLogeo = new JPanel();
-		this.panelLogeo.setVisible(false);
 		panelLogeo.setBorder(null);
 		contentPane.add(panelLogeo, BorderLayout.NORTH);
 		panelLogeo.setLayout(new BoxLayout(panelLogeo, BoxLayout.Y_AXIS));
@@ -229,9 +227,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel_3 = new JPanel();
 		panel_1.add(panel_3);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		panel_3.add(textField);
+		textFieldLoginUsuario = new JTextField();
+		textFieldLoginUsuario.setColumns(10);
+		panel_3.add(textFieldLoginUsuario);
 		
 		panel_4 = new JPanel();
 		panel_1.add(panel_4);
@@ -242,9 +240,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel_5 = new JPanel();
 		panel_1.add(panel_5);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		panel_5.add(textField_1);
+		textFieldLoginContras = new JTextField();
+		textFieldLoginContras.setColumns(10);
+		panel_5.add(textFieldLoginContras);
 		
 		panel_6 = new JPanel();
 		panel1Columna1.add(panel_6);
@@ -275,9 +273,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel_12 = new JPanel();
 		panel_10.add(panel_12);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		panel_12.add(textField_2);
+		textFieldRgeistNbre = new JTextField();
+		textFieldRgeistNbre.setColumns(10);
+		panel_12.add(textFieldRgeistNbre);
 		
 		panel_13 = new JPanel();
 		panel_10.add(panel_13);
@@ -288,9 +286,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel_14 = new JPanel();
 		panel_10.add(panel_14);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		panel_14.add(textField_3);
+		textFieldRegistUsuario = new JTextField();
+		textFieldRegistUsuario.setColumns(10);
+		panel_14.add(textFieldRegistUsuario);
 		
 		panel_15 = new JPanel();
 		panel_10.add(panel_15);
@@ -301,9 +299,9 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		panel_16 = new JPanel();
 		panel_10.add(panel_16);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		panel_16.add(textField_4);
+		textFieldRegistContras = new JTextField();
+		textFieldRegistContras.setColumns(10);
+		panel_16.add(textFieldRegistContras);
 		
 		panel_17 = new JPanel();
 		panel2Columna2.add(panel_17);
@@ -316,9 +314,17 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		
 		//aparte
 		this.btnSolicitarViaje.setEnabled(false);
+		this.btnLogin.setEnabled(false);
+		this.btnRegistrarse.setEnabled(false);
+		this.btnFinalizarPedidos.setEnabled(false);
 		this.textFieldZona.addKeyListener(this);
 		this.textFieldCantpersonas.addKeyListener(this);
-		
+		this.textFieldLoginUsuario.addKeyListener(this);
+		this.textFieldLoginContras.addKeyListener(this);
+		this.textFieldRgeistNbre.addKeyListener(this);
+		this.textFieldRegistUsuario.addKeyListener(this);
+		this.textFieldRegistContras.addKeyListener(this);
+		this.panelCentral.setVisible(false);
 	}
 
 	
@@ -330,12 +336,44 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		this.btnSolicitarViaje.setEnabled(false);
 	}
 	
+	public void limpiarCamposRegistrarse() {
+		this.textFieldRgeistNbre.setText("");
+		this.textFieldRegistUsuario.setText("");
+		this.textFieldRegistContras.setText("");
+		this.btnRegistrarse.setEnabled(false);
+	}
+	
+	public void limpiarCamposLogin() {
+		this.textFieldLoginUsuario.setText("");
+		this.textFieldLoginContras.setText("");
+		this.btnLogin.setEnabled(false);
+	}
+	
+	public void habilitarPanelLogin() {
+		this.panelLogeo.setVisible(true);
+	}
+	
+	public void habilitarPanelPedidos() {
+		this.panelCentral.setVisible(true);
+	}
+	
+	public void habilitarBtnFinalizarPedidos() {
+		this.btnFinalizarPedidos.setEnabled(true);
+	}
+	
 	public void appendLog(String mensaje) {
 		this.textArea.append(mensaje);
 	}
 	
 	public void deshabilitarBotones() {
 		this.btnSolicitarViaje.setEnabled(false);
+		this.btnRegistrarse.setEnabled(false);
+		this.btnLogin.setEnabled(false);
+		this.textFieldRgeistNbre.setEditable(false);
+		this.textFieldRegistUsuario.setEditable(false);
+		this.textFieldRegistContras.setEditable(false);
+		this.textFieldLoginUsuario.setEditable(false);
+		this.textFieldLoginContras.setEditable(false);
 		this.textFieldZona.setEditable(false);
 		this.textFieldCantpersonas.setEditable(false);
 		this.rdbtnEquipajeBaul.setEnabled(false);
@@ -346,12 +384,18 @@ public class VentanaLogin extends JFrame implements KeyListener {
 	public void setActionListener(ActionListener actionlistener) {
 		this.btnFinalizarPedidos.addActionListener(actionlistener);
 		this.btnSolicitarViaje.addActionListener(actionlistener);
+		this.btnLogin.addActionListener(actionlistener);
+		this.btnRegistrarse.addActionListener(actionlistener);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		boolean habilitado = !(this.textFieldZona.getText().isEmpty()) && !(this.textFieldCantpersonas.getText().isEmpty());
-		this.btnSolicitarViaje.setEnabled(habilitado);
+		boolean enabledbtnSolicitarViaje = !(this.textFieldZona.getText().isEmpty()) && !(this.textFieldCantpersonas.getText().isEmpty());
+		this.btnSolicitarViaje.setEnabled(enabledbtnSolicitarViaje);
+		boolean enabledbtnLogin = !(this.textFieldLoginUsuario.getText().isEmpty()) && !(this.textFieldLoginContras.getText().isEmpty());
+		this.btnLogin.setEnabled(enabledbtnLogin);
+		boolean enabledbtnRegist = !(this.textFieldRgeistNbre.getText().isEmpty()) && !(this.textFieldRegistUsuario.getText().isEmpty()) && !(this.textFieldRegistContras.getText().isEmpty());
+		this.btnRegistrarse.setEnabled(enabledbtnRegist);
 	}
 	
 	@Override
@@ -365,5 +409,4 @@ public class VentanaLogin extends JFrame implements KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
 }

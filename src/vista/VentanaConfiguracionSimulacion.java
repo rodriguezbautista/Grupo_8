@@ -7,18 +7,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JRadioButton;
-import javax.swing.border.BevelBorder;
 import javax.swing.ButtonGroup;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class VentanaConfiguracionSimulacion extends JFrame implements KeyListener{
+public class VentanaConfiguracionSimulacion extends JFrame implements KeyListener, MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -35,11 +37,11 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 	private JLabel lblCantClientes;
 	private JTextField textFieldCantClientes;
 	private JLabel lblCantViajesChofer;
-	private JTextField textFieldCantMAxViajesChofer;
+	private JTextField textFieldCantMaxViajesChofer;
 	private JLabel lblCantpedidosClientes;
 	private JTextField textFieldCantPedidosClientes;
 	private JLabel lblCantAutos;
-	private JTextField textFieldCantAucot;
+	private JTextField textFieldCantAuto;
 	private JLabel lblCantCombis;
 	private JTextField textFieldCantCombis;
 	private JLabel lblCantMotos;
@@ -99,10 +101,12 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		this.panelCentralIzq.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		this.rdbtnUsarConfig = new JRadioButton("Usar Configuracion Existente");
+		this.rdbtnUsarConfig.addMouseListener(this);
 		buttonGroup.add(this.rdbtnUsarConfig);
 		this.panelCentralIzq.add(this.rdbtnUsarConfig);
 		
 		this.rdbtnConfigurar = new JRadioButton("Configurar Simulacion");
+		this.rdbtnConfigurar.addMouseListener(this);
 		buttonGroup.add(this.rdbtnConfigurar);
 		this.panelCentralIzq.add(this.rdbtnConfigurar);
 		
@@ -150,9 +154,9 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		this.panel_5 = new JPanel();
 		this.panelCentralDerInterior.add(this.panel_5);
 		
-		this.textFieldCantMAxViajesChofer = new JTextField();
-		this.panel_5.add(this.textFieldCantMAxViajesChofer);
-		this.textFieldCantMAxViajesChofer.setColumns(10);
+		this.textFieldCantMaxViajesChofer = new JTextField();
+		this.panel_5.add(this.textFieldCantMaxViajesChofer);
+		this.textFieldCantMaxViajesChofer.setColumns(10);
 		
 		this.panel_6 = new JPanel();
 		this.panelCentralDerInterior.add(this.panel_6);
@@ -176,9 +180,9 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		this.panel_9 = new JPanel();
 		this.panelCentralDerInterior.add(this.panel_9);
 		
-		this.textFieldCantAucot = new JTextField();
-		this.panel_9.add(this.textFieldCantAucot);
-		this.textFieldCantAucot.setColumns(10);
+		this.textFieldCantAuto = new JTextField();
+		this.panel_9.add(this.textFieldCantAuto);
+		this.textFieldCantAuto.setColumns(10);
 		
 		this.panel_10 = new JPanel();
 		this.panelCentralDerInterior.add(this.panel_10);
@@ -215,32 +219,73 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		
 		this.btnAceptar = new JButton("Aceptar");
 		this.panelSurInterno.add(this.btnAceptar);
-		this.btnAceptar.setEnabled(false);
+		
+		//aparte
+		this.btnAceptar.setEnabled(true);
+		this.rdbtnUsarConfig.setSelected(true);
+		this.textFieldCantChoferes.addKeyListener(this);
+		this.textFieldCantClientes.addKeyListener(this);
+		this.textFieldCantMaxViajesChofer.addKeyListener(this);
+		this.textFieldCantPedidosClientes.addKeyListener(this);
+		this.textFieldCantAuto.addKeyListener(this);
+		this.textFieldCantCombis.addKeyListener(this);
+		this.textFieldCantMotos.addKeyListener(this);
+		this.textFieldCantChoferes.setEditable(false);
+		this.textFieldCantClientes.setEditable(false);
+		this.textFieldCantMaxViajesChofer.setEditable(false);
+		this.textFieldCantPedidosClientes.setEditable(false);
+		this.textFieldCantAuto.setEditable(false);
+		this.textFieldCantCombis.setEditable(false);
+		this.textFieldCantMotos.setEditable(false);
 	}
-
+	
+	public void setActionListener(ActionListener actionListener) {
+		this.btnAceptar.addActionListener(actionListener);
+	}
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(this.rdbtnUsarConfig.isSelected()) {
-			this.textFieldCantChoferes.setEditable(false);
-			this.textFieldCantClientes.setEditable(false);
-			this.textFieldCantMAxViajesChofer.setEditable(false);
-			this.textFieldCantPedidosClientes.setEditable(false);
-			this.textFieldCantAucot.setEditable(false);
-			this.textFieldCantCombis.setEditable(false);
-			this.textFieldCantMotos.setEditable(false);
-			this.btnAceptar.setEnabled(true);
-		}
+		boolean habilitado = !(this.textFieldCantChoferes.getText().isEmpty()) && !(this.textFieldCantClientes.getText().isEmpty()) && !(this.textFieldCantMaxViajesChofer.getText().isEmpty())
+				&& !(this.textFieldCantPedidosClientes.getText().isEmpty()) && !(this.textFieldCantAuto.getText().isEmpty()) && !(this.textFieldCantCombis.getText().isEmpty())
+				&& !(this.textFieldCantMotos.getText().isEmpty());
+		this.btnAceptar.setEnabled(habilitado);
 	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		if(e.getComponent()==this.rdbtnUsarConfig) {
+			habilitaConfiguracion(false);
+		}
+		else if(e.getComponent()==this.rdbtnConfigurar) {
+			habilitaConfiguracion(true);
+		}
+	}
+
+	private void habilitaConfiguracion(boolean b) {
+		this.textFieldCantChoferes.setEditable(b);
+		this.textFieldCantClientes.setEditable(b);
+		this.textFieldCantMaxViajesChofer.setEditable(b);
+		this.textFieldCantPedidosClientes.setEditable(b);
+		this.textFieldCantAuto.setEditable(b);
+		this.textFieldCantCombis.setEditable(b);
+		this.textFieldCantMotos.setEditable(b);
+		this.btnAceptar.setEnabled(!b);
+	}
+
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
 	}
 
 }

@@ -5,13 +5,13 @@ import java.util.Observer;
 
 import vista.VentanaGeneral;
 
-public class OjoRecursoCompartido implements Observer{
+public class OjoRecursoCompartido_VentanaGeneral implements Observer{
 
 	private Observable rc;
 	private VentanaGeneral ventana;
-	private InfoVentanaGeneral info;
+	private InfoVentana info;
 	
-	public OjoRecursoCompartido(Observable  rc, VentanaGeneral ventana) {
+	public OjoRecursoCompartido_VentanaGeneral(Observable  rc, VentanaGeneral ventana) {
 		this.rc = rc;
 		this.ventana = ventana;
 		this.rc.addObserver(this);
@@ -20,7 +20,7 @@ public class OjoRecursoCompartido implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o == this.rc) {
-			this.info = (InfoVentanaGeneral) arg;
+			this.info = (InfoVentana) arg;
 			
 			this.ventana.appendTextGeneral(this.info.getMensaje());//muentra en el campo de texto general
 			if(this.info.getChofer().equalsIgnoreCase("Chofer")) {

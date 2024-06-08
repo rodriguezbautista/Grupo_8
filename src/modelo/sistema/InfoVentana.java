@@ -3,7 +3,7 @@ package modelo.sistema;
 import modelo.chofer.Chofer;
 import modelo.usuario.ClienteDTO;
 
-public class InfoVentanaGeneral {
+public class InfoVentana {
 	private String chofer;
 	private String cliente;
 	private String mensaje;
