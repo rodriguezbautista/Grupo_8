@@ -4,17 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import excepciones.PedidoRechazadoException;
-import modelo.sistema.Sistema;
+import modelo.sistema.Empresa;
+import modelo.usuario.ClienteThreadLogeado;
+import modelo.viaje.SubsistemaViaje;
 import vista.IVista;
+import vista.VentanaConfiguracionSimulacion;
 
 public class Controlador implements ActionListener{
 	private IVista vistaLogin;
-	private IVista vistaConfiguracion;
-	private Sistema modelo;
+	private VentanaConfiguracionSimulacion vistaConfiguracion;
+	private Empresa modelo;
 	
 	
-	public Controlador(IVista vista, IVista vistaConfiguracion) {
-		this.modelo=Sistema.getInstance();
+	public Controlador(IVista vista, VentanaConfiguracionSimulacion vistaConfiguracion) {
+		this.modelo=Empresa.getInstance();
 		this.vistaLogin = vista;
 		this.vistaLogin.setActionListener(this);
 		this.vistaConfiguracion = vistaConfiguracion;
@@ -28,15 +31,18 @@ public class Controlador implements ActionListener{
 			//LOGICA DE RESTAR UNO AL SISTEMA
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("Solicitar Viaje")) {
-			//llamado a getters
+			int cantidadPersonas = this.vistaLogin.getCantidadPersonas();
+			boolean usaBaul = this.vistaLogin.getUsaBaul();
+			boolean llevaMascota = this.vistaLogin.getLlevaMascota();
+			String zona = this.vistaLogin.getZona();
+			
 			try {
-				//envio de datos al modelo
-				this.modelo.solicitarViaje(null, 0, null, 0, false, false);
+				//envio de datos al model
+				this.modelo.solicitarViaje(12.0, zona, cantidadPersonas, usaBaul, llevaMascota);
 				this.vistaLogin.limpiarCamposPedido();
 				this.vistaLogin.appendLog("Viaje Solicitado");
 			}
 			catch(PedidoRechazadoException msj) {
-				this.vistaLogin.appendLog(msj.getMessage());
 			}
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Aceptar")) {
@@ -49,7 +55,7 @@ public class Controlador implements ActionListener{
 			//al mismo y creando otro clienteDTO, agregandolo al hashmap
 			this.vistaLogin.limpiarCamposRegistrarse();
 			this.vistaLogin.habilitarBtnFinalizarPedidos(true);
-			this.vistaLogin.habilitarPanelPedidos(true);;
+			this.vistaLogin.habilitarPanelPedidos(true);
 			this.vistaLogin.habilitarPanelLogin(false);
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Login")) {

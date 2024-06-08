@@ -23,8 +23,10 @@ import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
+import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 
-public class VentanaLogin extends JFrame implements KeyListener{
+public class VentanaLogin extends JFrame implements KeyListener, IVista{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,11 +42,8 @@ public class VentanaLogin extends JFrame implements KeyListener{
 	private JPanel panel_9;
 	private JPanel panel_19;
 	private JPanel panel_20;
-	private JTextField textFieldZona;
 	private JLabel lblCantPersonas;
 	private JTextField textFieldCantpersonas;
-	private JRadioButton rdbtnEquipajeBaul;
-	private JRadioButton rdbtnMascota;
 	private JPanel panel_25;
 	private JButton btnSolicitarViaje;
 	private JPanel panelLogeo;
@@ -83,12 +82,16 @@ public class VentanaLogin extends JFrame implements KeyListener{
 	private JPanel panel_27;
 	private JPanel panel_21;
 	private JLabel lblZona;
-	//private Controlador controlador;
+	private JRadioButton estandar;
+	private JRadioButton sinasfaltar;
+	private JRadioButton peligrosa;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JPanel panel_22;
+	private JPanel panel_23;
+	private JCheckBox llevaMascota;
+	private JCheckBox usaBaul;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	public void start() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -129,48 +132,68 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		
 		this.panel_20 = new JPanel();
 		this.panel_9.add(this.panel_20);
-		this.panel_20.setLayout(new GridLayout(2, 2, 0, 0));
+		panel_20.setLayout(new BoxLayout(panel_20, BoxLayout.Y_AXIS));
+		
+		panel_22 = new JPanel();
+		panel_20.add(panel_22);
+		panel_22.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		this.panel_21 = new JPanel();
+		panel_22.add(panel_21);
 		FlowLayout flowLayout = (FlowLayout) panel_21.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		this.panel_20.add(this.panel_21);
 		
 		lblZona = new JLabel("Zona");
 		panel_21.add(lblZona);
 		
 		this.panel_27 = new JPanel();
-		this.panel_20.add(this.panel_27);
+		panel_22.add(panel_27);
+		panel_27.setLayout(new BoxLayout(panel_27, BoxLayout.Y_AXIS));
 		
-		this.textFieldZona = new JTextField();
-		this.panel_27.add(this.textFieldZona);
-		this.textFieldZona.setColumns(15);
+		estandar = new JRadioButton("Estandar");
+		buttonGroup.add(estandar);
+		panel_27.add(estandar);
+		
+		sinasfaltar = new JRadioButton("Sin asfaltar");
+		sinasfaltar.setActionCommand("Calle sin asfaltar");
+		buttonGroup.add(sinasfaltar);
+		panel_27.add(sinasfaltar);
+		
+		peligrosa = new JRadioButton("Peligrosa");
+		peligrosa.setActionCommand("Zona Peligrosa");
+		buttonGroup.add(peligrosa);
+		panel_27.add(peligrosa);
+		
+		panel_23 = new JPanel();
+		panel_20.add(panel_23);
+		panel_23.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		this.panel_28 = new JPanel();
+		panel_23.add(panel_28);
 		FlowLayout flowLayout_1 = (FlowLayout) panel_28.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.RIGHT);
-		this.panel_20.add(this.panel_28);
 		
 		this.lblCantPersonas = new JLabel("CantPersonas");
 		this.panel_28.add(this.lblCantPersonas);
 		
 		this.panel_29 = new JPanel();
-		this.panel_20.add(this.panel_29);
+		panel_23.add(panel_29);
 		
 		this.textFieldCantpersonas = new JTextField();
 		this.panel_29.add(this.textFieldCantpersonas);
 		this.textFieldCantpersonas.setColumns(15);
+		this.textFieldCantpersonas.addKeyListener(this);
 		
 		this.panel_19 = new JPanel();
 		panel_19.setMinimumSize(new Dimension(0, 0));
 		this.panel_9.add(this.panel_19);
-		
-		this.rdbtnMascota = new JRadioButton("Mascota");
-		
-		this.rdbtnEquipajeBaul = new JRadioButton("EquipajeBaul");
 		panel_19.setLayout(new BoxLayout(panel_19, BoxLayout.Y_AXIS));
-		panel_19.add(rdbtnMascota);
-		panel_19.add(rdbtnEquipajeBaul);
+		
+		llevaMascota = new JCheckBox("Con mascota");
+		panel_19.add(llevaMascota);
+		
+		usaBaul = new JCheckBox("Equipaje en baul");
+		panel_19.add(usaBaul);
 		
 		this.panel_8 = new JPanel();
 		this.panelColumna2.add(this.panel_8);
@@ -312,28 +335,31 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		btnRegistrarse = new JButton("Registrarse");
 		panel_18.add(btnRegistrarse);
 		
+		this.estandar.setSelected(true);
+		
 		//aparte
 		this.btnSolicitarViaje.setEnabled(false);
 		this.btnLogin.setEnabled(false);
 		this.btnRegistrarse.setEnabled(false);
 		this.btnFinalizarPedidos.setEnabled(false);
-		this.textFieldZona.addKeyListener(this);
-		this.textFieldCantpersonas.addKeyListener(this);
 		this.textFieldLoginUsuario.addKeyListener(this);
 		this.textFieldLoginContras.addKeyListener(this);
 		this.textFieldRgeistNbre.addKeyListener(this);
 		this.textFieldRegistUsuario.addKeyListener(this);
 		this.textFieldRegistContras.addKeyListener(this);
+		this.panelLogeo.setVisible(true);
 		this.panelCentral.setVisible(false);
 		this.panelSur.setVisible(false);
 	}
 
 	
 	public void limpiarCamposPedido() {
-		this.textFieldZona.setText("");
+		this.estandar.setSelected(true);
+		this.sinasfaltar.setSelected(false);
+		this.peligrosa.setSelected(false);
 		this.textFieldCantpersonas.setText("");
-		this.rdbtnEquipajeBaul.setSelected(false);
-		this.rdbtnMascota.setSelected(false);
+		this.usaBaul.setSelected(false);
+		this.llevaMascota.setSelected(false);
 		this.btnSolicitarViaje.setEnabled(false);
 	}
 	
@@ -359,8 +385,8 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		this.panelSur.setVisible(b);
 	}
 	
-	public void habilitarBtnFinalizarPedidos() {
-		this.btnFinalizarPedidos.setEnabled(true);
+	public void habilitarBtnFinalizarPedidos(boolean b) {
+		this.btnFinalizarPedidos.setEnabled(b);
 	}
 	
 	public void appendLog(String mensaje) {
@@ -376,10 +402,12 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		this.textFieldRegistContras.setEditable(false);
 		this.textFieldLoginUsuario.setEditable(false);
 		this.textFieldLoginContras.setEditable(false);
-		this.textFieldZona.setEditable(false);
+		this.peligrosa.setEnabled(false);
+		this.sinasfaltar.setEnabled(false);
+		this.estandar.setEnabled(false);
 		this.textFieldCantpersonas.setEditable(false);
-		this.rdbtnEquipajeBaul.setEnabled(false);
-		this.rdbtnMascota.setEnabled(false);
+		this.llevaMascota.setEnabled(false);
+		this.usaBaul.setEnabled(false);
 		this.btnFinalizarPedidos.setEnabled(false);
 	}
 	
@@ -392,7 +420,12 @@ public class VentanaLogin extends JFrame implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		boolean enabledbtnSolicitarViaje = !(this.textFieldZona.getText().isEmpty()) && !(this.textFieldCantpersonas.getText().isEmpty());
+		Integer cantPersonas = null;
+		try {			
+			cantPersonas = Integer.parseInt(this.textFieldCantpersonas.getText());
+		}catch(NumberFormatException nfe){
+		}
+		boolean enabledbtnSolicitarViaje = !(this.textFieldCantpersonas.getText().isEmpty() || cantPersonas == null || cantPersonas < 1) ;
 		this.btnSolicitarViaje.setEnabled(enabledbtnSolicitarViaje);
 		boolean enabledbtnLogin = !(this.textFieldLoginUsuario.getText().isEmpty()) && !(this.textFieldLoginContras.getText().isEmpty());
 		this.btnLogin.setEnabled(enabledbtnLogin);
@@ -410,5 +443,21 @@ public class VentanaLogin extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getCantidadPersonas() {
+		return Integer.parseInt(this.textFieldCantpersonas.getText());
+	}
+
+	public boolean getUsaBaul() {
+		return this.usaBaul.isSelected();
+	}
+
+	public boolean getLlevaMascota() {
+		return this.llevaMascota.isSelected();
+	}
+
+	public String getZona() {
+		return this.buttonGroup.getSelection().getActionCommand();
 	}
 }

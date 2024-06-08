@@ -2,7 +2,7 @@
 
 import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
-import modelo.usuario.ClienteDTO;
+import modelo.usuario.Cliente;
 import modelo.vehiculo.Vehiculo;
 
  /**
@@ -36,11 +36,15 @@ public abstract class DecoratorViajes implements IViaje {
 		encapsulado.setVehiculo(vehiculo);
 	}
 	
+	public String getStatus() {
+		return encapsulado.getStatus();
+	}
+	
 	public void setStatus(String status) {
 		encapsulado.setStatus(status);
 	}
 	
-	public ClienteDTO getCliente() {
+	public Cliente getCliente() {
 		return this.encapsulado.getCliente();
 	}
 	

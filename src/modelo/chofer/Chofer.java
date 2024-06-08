@@ -1,12 +1,14 @@
 package modelo.chofer;
 
-import modelo.usuario.Empresa;
+import java.io.Serializable;
+
+import modelo.sistema.Empresa;
 
 /**
  * Clase abstracta que representa a un chofer de la empresa.
  * Esta clase define las características comunes para todos los choferes y declara un método abstracto para obtener el sueldo.
  */
-public abstract class Chofer {
+public abstract class Chofer implements Serializable{
 	
 	protected String dni;
 	protected String nombre;

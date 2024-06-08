@@ -1,8 +1,10 @@
 package modelo.vehiculo;
 
+import java.io.Serializable;
+
 import modelo.sistema.Pedido;
 
-public abstract class Vehiculo {
+public abstract class Vehiculo implements Serializable{
 	protected String numpatente;
 	protected final int cantMaxPas;
 	protected final boolean petFriendly;

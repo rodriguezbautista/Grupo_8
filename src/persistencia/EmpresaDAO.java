@@ -1,17 +1,69 @@
 package persistencia;
 
-import modelo.usuario.Empresa;
+import java.io.IOException;
+import java.io.Serializable;
+
+import modelo.chofer.Chofer;
+import modelo.sistema.Empresa;
+import modelo.usuario.Cliente;
+import modelo.vehiculo.Vehiculo;
+import modelo.viaje.IViaje;
 
 public class EmpresaDAO {
-	public static EmpresaDTO EmpresaDTOfromEmpresa(Empresa empresa) {
+	private IPersistencia<Serializable> persistencia;
+	
+	public EmpresaDAO(IPersistencia<Serializable> persistencia) {
+		this.persistencia = persistencia;
+	}
+
+	public EmpresaDTO EmpresaDTOfromEmpresa(Empresa empresa) {
 		EmpresaDTO dto = new EmpresaDTO();
-		//Aca iria todos los setter de el dto tomando los datos de la empresa
+		dto.setChoferes(empresa.getChoferes());
+		dto.setClientes(empresa.getClientes());
+		dto.setVehiculos(empresa.getVehiculos());
+		dto.setViajes(empresa.getViajes());
+		
 		return dto;
 	}
 	
-	public static Empresa EmpresafromEmpresaDTO(EmpresaDTO empresaDTO) {
+	public void EmpresafromEmpresaDTO(EmpresaDTO empresaDTO) {
 		Empresa empresa = Empresa.getInstance();
-		//Aca iria todos los setter de la empresa tomando los datos de la empresa
-		return empresa;
+		for(IViaje viaje: empresaDTO.getViajes()){
+			empresa.addViaje(viaje);
+		}
+		for(Cliente cliente: empresaDTO.getClientes().values()) {
+			empresa.addCliente(cliente);
+		}
+		for(Chofer chofer: empresaDTO.getChoferes()) {
+			empresa.addChofer(chofer);
+		}
+		for(Vehiculo vehiculo: empresaDTO.getVehiculos()) {
+			empresa.addVehiculos(vehiculo);
+		}
+	}
+	
+	public void serializar(Empresa empresa) {
+		try {
+			persistencia.abrirOutput("Empresa.dat");
+			EmpresaDTO edto= this.EmpresaDTOfromEmpresa(empresa);
+			persistencia.escribir(edto);
+			persistencia.cerrarOutput();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deserializar() {
+		try {
+			persistencia.abrirInput("Empresa.dat");
+			EmpresaDTO edto = (EmpresaDTO) persistencia.leer();
+			persistencia.cerrarInput();
+			this.EmpresafromEmpresaDTO(edto);
+		} catch (IOException e) {
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

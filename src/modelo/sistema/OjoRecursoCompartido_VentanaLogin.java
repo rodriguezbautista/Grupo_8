@@ -22,8 +22,8 @@ public class OjoRecursoCompartido_VentanaLogin implements Observer{
 		if(o == this.rc) {
 			this.info = (InfoVentana) arg;
 			
-			if(this.info.getCliente().getNombreUsuario.equalsIgnoreCase("...")) {
-				this.ventana.appendLog("El cliente " + this.info.getCliente().getNombreUsuario + this.info.getMensaje());
+			if(this.info.getCliente().equalsIgnoreCase(/*Usuario logeado*/"")) {
+				this.ventana.appendLog(this.info.getMensaje());
 			}
 		}
 	}

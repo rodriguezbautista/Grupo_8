@@ -1,13 +1,17 @@
 package modelo.sistema;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 
+import excepciones.PedidoRechazadoException;
 import modelo.chofer.Chofer;
 import modelo.chofer.ChoferThread;
+import modelo.usuario.Cliente;
 import modelo.usuario.ClienteThread;
-import modelo.usuario.Empresa;
 import modelo.vehiculo.Vehiculo;
 import modelo.viaje.IViaje;
 
@@ -17,12 +21,8 @@ public class RecursoCompartido extends Observable {
 	private ArrayList<IViaje> viajesConVehiculo = new ArrayList<IViaje>();
 	private ArrayList<IViaje> viajesIniciados = new ArrayList<IViaje>();
 	private InfoVentana informacion;
-	private Empresa empresa;
 
-
-	public RecursoCompartido(Empresa empresa, boolean estadoSimulacion) {
-		this.empresa = empresa;
-	}
+	public RecursoCompartido() {}
 
 	public synchronized void asignarVehiculo() {
 		while (Simulacion.getChoferesActivos() > 0 && this.viajesSolicitados.isEmpty()) {// mientras la simulacion este activa y NO haya viajes solicitados, espera...															
@@ -148,8 +148,10 @@ public class RecursoCompartido extends Observable {
 			}
 		}
 		
+		viaje.setStatus("finalizado");
+		
 		agregarVehiculo(viaje.getVehiculo());
-		empresa.addViaje(viaje);
+		Empresa.getInstance().addViaje(viaje);
 		
 		this.informacion.setChofer(chofer.getNombre());
 		this.informacion.setCliente("");
@@ -172,6 +174,35 @@ public class RecursoCompartido extends Observable {
 
 	public void agregarViaje(IViaje viaje) {
 		this.viajesSolicitados.add(viaje);
+	}
+
+	public void validarPedido(Cliente cliente, List<Vehiculo> vehiculos, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
+		boolean valido = false;
+		
+		this.informacion.setChofer("");
+		this.informacion.setCliente(cliente.getNombre());
+		
+		if (cantidadPersonas > 10) {
+			this.informacion.setMensaje("El cliente "+ cliente.getNombre() + " quiso realizar un pedido invalido de " + cantidadPersonas + " personas. El pedido fue rechazado");
+    		setChanged();
+    		notifyObservers(this.informacion);
+    		throw new PedidoRechazadoException("Cantidad de personas invalido");
+		}
+		
+		Iterator<Vehiculo> iteratorVehiculos = vehiculos.iterator();
+    	while(iteratorVehiculos.hasNext() && !valido) {
+    		Vehiculo aux = iteratorVehiculos.next();
+    		if (aux.verificaPasajeros(cantidadPersonas) && aux.verificaBaul(usoBaul) && aux.verificaMascota(llevaMascota)) {
+    			valido = true;
+    		}
+    	}
+    	
+    	if (!valido) {
+    		this.informacion.setMensaje("No existen vehiculos aptos para el pedido del cliente " + cliente.getNombre() + ". El pedido fue rechazado");
+    		setChanged();
+    		notifyObservers(this.informacion);
+    		throw new PedidoRechazadoException("No existen vehiculos aptos para el pedido del cliente");
+    	}
 	}
 
 }

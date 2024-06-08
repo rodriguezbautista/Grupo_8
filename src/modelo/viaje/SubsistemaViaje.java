@@ -1,44 +1,39 @@
 package modelo.viaje;
 
-import java.util.Collections;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
-import excepciones.NoChoferException;
-import excepciones.NoVehiculoException;
 import excepciones.PedidoRechazadoException;
+import modelo.sistema.Empresa;
 import modelo.sistema.Pedido;
-import modelo.usuario.Empresa;
+import modelo.sistema.RecursoCompartido;
+import modelo.sistema.Util;
+import modelo.usuario.Cliente;
+import modelo.vehiculo.Vehiculo;
 
 public class SubsistemaViaje {
 	
-	public static IViaje crearViaje(Pedido pedido) throws PedidoRechazadoException {
-        
+	private static IViaje crearViaje(Pedido pedido){
         IViaje nuevoViaje = ViajeFactory.getViaje(pedido);
         nuevoViaje.setStatus("Solicitado.");
         return nuevoViaje;
-        
-    	/*
-    	Vehiculo vehiculo = SubsistemaVehiculo.mejorVehiculo(empresa, nuevoViaje);
-    	nuevoViaje.setVehiculo(vehiculo);
-    	nuevoViaje.setStatus("Con vehiculo.");
-    	
-    	if(!this.empresa.getChoferes().isEmpty()) {
-    		Chofer chofer = this.empresa.getChoferes().get(0);
-    		Collections.rotate(this.empresa.getChoferes(), -1); // Este método rota los elementos del array x posiciones, con -1 el primer elemento queda último.
-    		nuevoViaje.setChofer(chofer);
-    		nuevoViaje.setStatus("Iniciado.");
-    		return nuevoViaje;
-    	}else {
-    		throw new NoChoferException();
-    	}	*/
     }
 	
-	public static void registrarPago(Empresa empresa, Viaje viaje) {
-		empresa.sumaRecaudado(viaje.getCosto());
-		viaje.setStatus("Pagado.");
-	}
-	
-	public static void finalizarViaje(Empresa empresa) {
-		Collections.rotate(empresa.getChoferes(), -1);
-		Collections.rotate(empresa.getVehiculos(), -1);
-	}
+    private static Pedido crearPedido(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
+    	Pedido pedido = null;
+    	List<Vehiculo> vehiculos = Empresa.getInstance().getVehiculos();
+    	
+        recursoCompartido.validarPedido(cliente, vehiculos, zona, cantidadPersonas, usoBaul, llevaMascota);
+        
+        pedido = new Pedido(Util.fechaActual(), zona, llevaMascota, llevaMascota, cantidadPersonas, cliente);
+        
+        return pedido;
+    }
+    
+    public static void solicitarViaje(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
+    	Pedido pedido = crearPedido(recursoCompartido, cliente, distancia, zona, cantidadPersonas, usoBaul, llevaMascota);
+    	recursoCompartido.agregarViaje(SubsistemaViaje.crearViaje(pedido));
+    }
 }

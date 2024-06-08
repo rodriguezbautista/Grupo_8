@@ -1,7 +1,7 @@
 package modelo.sistema;
 
 import modelo.chofer.Chofer;
-import modelo.usuario.ClienteDTO;
+import modelo.usuario.Cliente;
 
 public class InfoVentana {
 	private String chofer;

@@ -1,15 +1,16 @@
 package modelo.viaje;
 
+import java.io.Serializable;
+
 import modelo.chofer.Chofer;
 import modelo.sistema.Pedido;
-import modelo.usuario.ClienteDTO;
+import modelo.usuario.Cliente;
 import modelo.vehiculo.Vehiculo;
 
 /**
  * Interfaz que modela una parte del comportamiento de los viajes.<br>
  */
-public interface IViaje {
-
+public interface IViaje extends Serializable {
 	double getCosto();
 	Pedido getPedido();
     double getDistanciaReal();
@@ -17,7 +18,7 @@ public interface IViaje {
 	void setChofer(Chofer chofer);
 	void setStatus(String string);
 	void setVehiculo(Vehiculo vehiculo);
-	ClienteDTO getCliente();
+	Cliente getCliente();
 	Vehiculo getVehiculo();
 	String getStatus();
 }

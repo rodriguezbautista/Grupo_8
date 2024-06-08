@@ -2,7 +2,7 @@ package modelo.chofer;
 
 import java.util.ArrayList;
 
-import modelo.usuario.Empresa;
+import modelo.sistema.Empresa;
 import modelo.viaje.IViaje;
 
 /**

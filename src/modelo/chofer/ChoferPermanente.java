@@ -5,7 +5,8 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import modelo.usuario.Empresa;
+import modelo.sistema.Empresa;
+
 
 /**
  * Clase que representa a un chofer permanente de la empresa.

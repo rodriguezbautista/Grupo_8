@@ -1,10 +1,14 @@
 package modelo.usuario;
 
-public class ClienteThreadLogeado extends ClienteThread {
+import modelo.viaje.IViaje;
 
-	public ClienteThreadLogeado(ClienteDTO clienteDTO) {
+public class ClienteThreadLogeado extends ClienteThread {
+	public ClienteThreadLogeado(Cliente clienteDTO) {
 		super(clienteDTO);
-		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void run() {
+		
+	}
 }

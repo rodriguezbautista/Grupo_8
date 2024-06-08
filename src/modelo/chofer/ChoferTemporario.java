@@ -1,6 +1,6 @@
 package modelo.chofer;
 
-import modelo.usuario.Empresa;
+import modelo.sistema.Empresa;
 
 /**
  * Clase que representa a un chofer temporario de la empresa.

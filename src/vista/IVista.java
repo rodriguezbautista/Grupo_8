@@ -12,4 +12,9 @@ public interface IVista {
 	public void habilitarBtnFinalizarPedidos(boolean b);
 	public void habilitarPanelLogin(boolean b);
 	public void habilitarPanelPedidos(boolean b);
+	int getCantidadPersonas();
+	boolean getUsaBaul();
+	boolean getLlevaMascota();
+	String getZona();
+	public void start();
 }

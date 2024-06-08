@@ -1,18 +1,16 @@
 package modelo.usuario;
 
-import modelo.sistema.Simulacion;
 import modelo.viaje.IViaje;
 
 public abstract class ClienteThread extends Thread {
-	private ClienteDTO clienteDTO;
-	private IPedidos pedidos;
+	private Cliente clienteDTO;
 	private IViaje viaje;
 	
-	public ClienteThread(ClienteDTO clienteDTO) {
+	public ClienteThread(Cliente clienteDTO) {
 		this.clienteDTO = clienteDTO;
 	}
 	
-	public ClienteDTO getCliente() {
+	public Cliente getCliente() {
 		return this.clienteDTO;
 	}
 	
