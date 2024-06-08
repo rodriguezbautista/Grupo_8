@@ -9,7 +9,7 @@ public interface IVista {
 	public void appendLog(String mensaje);
 	public void limpiarCamposRegistrarse();
 	public void limpiarCamposLogin();
-	public void habilitarBtnFinalizarPedidos();
-	public void habilitarPanelLogin();
-	public void habilitarPanelPedidos();
+	public void habilitarBtnFinalizarPedidos(boolean b);
+	public void habilitarPanelLogin(boolean b);
+	public void habilitarPanelPedidos(boolean b);
 }

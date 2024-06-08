@@ -1,6 +1,7 @@
 package modelo.usuario;
 
 import modelo.sistema.RecursoCompartido;
+import modelo.sistema.Simulacion;
 
 public abstract class ClienteThreadRobot extends ClienteThread {
 	private int viajesRestantes;
@@ -16,6 +17,7 @@ public abstract class ClienteThreadRobot extends ClienteThread {
 	public void run() {
 		while(Simulacion.getChoferesActivos() > 0 && viajesRestantes > 0) {
 			//pedido
+			
 		}
 	}
 }

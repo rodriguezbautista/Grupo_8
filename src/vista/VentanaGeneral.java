@@ -74,6 +74,7 @@ public class VentanaGeneral extends JFrame{
 		this.panelColumna1.add(this.scrollPaneCol1, BorderLayout.CENTER);
 		
 		this.textAreaGeneral = new JTextArea();
+		this.textAreaGeneral.setEditable(false);
 		this.scrollPaneCol1.setViewportView(this.textAreaGeneral);
 		
 		this.panelColumna2 = new JPanel();
@@ -85,6 +86,7 @@ public class VentanaGeneral extends JFrame{
 		this.panelColumna2.add(this.scrollPaneCol2, BorderLayout.CENTER);
 		
 		this.textAreaChofer = new JTextArea();
+		this.textAreaChofer.setEditable(false);
 		this.scrollPaneCol2.setViewportView(this.textAreaChofer);
 		
 		this.panelColumna3 = new JPanel();
@@ -96,6 +98,7 @@ public class VentanaGeneral extends JFrame{
 		this.panelColumna3.add(this.scrollPaneCol3, BorderLayout.CENTER);
 		
 		this.textAreaCliente = new JTextArea();
+		this.textAreaCliente.setEditable(false);
 		this.scrollPaneCol3.setViewportView(this.textAreaCliente);
 	}
 	

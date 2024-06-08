@@ -19,4 +19,5 @@ public interface IViaje {
 	void setVehiculo(Vehiculo vehiculo);
 	ClienteDTO getCliente();
 	Vehiculo getVehiculo();
+	String getStatus();
 }

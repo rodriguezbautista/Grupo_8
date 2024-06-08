@@ -325,6 +325,7 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		this.textFieldRegistUsuario.addKeyListener(this);
 		this.textFieldRegistContras.addKeyListener(this);
 		this.panelCentral.setVisible(false);
+		this.panelSur.setVisible(false);
 	}
 
 	
@@ -349,12 +350,13 @@ public class VentanaLogin extends JFrame implements KeyListener{
 		this.btnLogin.setEnabled(false);
 	}
 	
-	public void habilitarPanelLogin() {
-		this.panelLogeo.setVisible(true);
+	public void habilitarPanelLogin(boolean b) {
+		this.panelLogeo.setVisible(b);
 	}
 	
-	public void habilitarPanelPedidos() {
-		this.panelCentral.setVisible(true);
+	public void habilitarPanelPedidos(boolean b) {
+		this.panelCentral.setVisible(b);
+		this.panelSur.setVisible(b);
 	}
 	
 	public void habilitarBtnFinalizarPedidos() {

@@ -20,7 +20,6 @@ public class Empresa {
 		vehiculos = new ArrayList<Vehiculo>();
 		choferes = new ArrayList<Chofer>();
 	}
-	
 
 	public ArrayList<ClienteDTO> getClientes() {
 		return clientes;
@@ -58,13 +57,9 @@ public class Empresa {
 		this.recaudado += monto;
 	}
 
-
 	public void addViaje(IViaje viaje) {
 		viajes.add(viaje);
 	}
-	
-	
-	
 }
 	
 	
