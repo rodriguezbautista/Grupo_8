@@ -13,7 +13,6 @@ public abstract class Viaje implements IViaje {
 	protected String status;
 	protected Pedido pedido;
 	protected Chofer chofer;
-	protected Cliente cliente;
 	protected double distanciaReal,costo;
 	protected static double costoBase=1000;
 	protected Vehiculo vehiculo;
@@ -80,10 +79,18 @@ public abstract class Viaje implements IViaje {
 	}
 	
 	public Cliente getCliente() {
-		return this.cliente;
+		return this.pedido.getCliente();
 	}
 	
 	public Vehiculo getVehiculo() {
 		return this.vehiculo;
 	}
+
+	@Override
+	public String toString() {
+		return status + " " + pedido + " " + chofer + " " + pedido.getCliente() + " " + distanciaReal + " " + costo + " "
+				+ vehiculo;
+	}
+	
+	
 }

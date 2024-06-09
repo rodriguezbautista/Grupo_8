@@ -52,6 +52,10 @@ public class Pedido {
 		return cantPersonas;
 	}
 	
+	public Cliente getCliente() {
+		return this.cliente;
+	}
+	
 	@Override
 	public String toString() {
 		return "Pedido [fecha=" + fecha + ", zona=" + zona + ", mascota=" + mascota + ", equipaje=" + equipaje

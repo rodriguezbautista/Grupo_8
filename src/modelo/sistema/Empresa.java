@@ -1,5 +1,6 @@
 package modelo.sistema;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,16 +13,26 @@ import modelo.usuario.ClienteThreadLogeado;
 import modelo.vehiculo.Vehiculo;
 import modelo.viaje.IViaje;
 import modelo.viaje.SubsistemaViaje;
+import persistencia.ConfiguracionDAO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
 
 
 public class Empresa {
 	private static Empresa instance = null;
-	private RecursoCompartido recursoCompartido;
+	private Simulacion simulacion;
 	private HashMap<String, Cliente> clientes;
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
 	private Cliente clienteLogeado;
+	
+	private Empresa() {
+		clientes = new HashMap<String, Cliente>();
+		choferes = new ArrayList<Chofer>();
+		vehiculos = new ArrayList<Vehiculo>();
+		viajes = new ArrayList<IViaje>();
+	}
 	
 	public static Empresa getInstance() {
 		if (instance==null) 
@@ -29,8 +40,8 @@ public class Empresa {
 		return instance;
 	}
 
-    public void setRecursoCompartido(RecursoCompartido recursoCompartido) {
-    	this.recursoCompartido = recursoCompartido;
+    public void setSimulacion(Simulacion simulacion) {
+    	this.simulacion = simulacion;
     }
     
     public HashMap<String, Cliente> getClientes() {
@@ -78,7 +89,7 @@ public class Empresa {
 	}
 
 	public RecursoCompartido getRecursoCompartido() {
-		return recursoCompartido;
+		return this.simulacion.getRecursoCompartido();
 	}
 	
 	public void logearCliente(String usuario, String contrasenia) throws CredencialesInvalidasException{
@@ -100,5 +111,13 @@ public class Empresa {
 	public void solicitarViaje(double d, String zona, int cantidadPersonas, boolean usaBaul, boolean llevaMascota) throws PedidoRechazadoException {
 		ClienteThreadLogeado cliente = new ClienteThreadLogeado(this.clienteLogeado);
 		SubsistemaViaje.solicitarViaje(this.getRecursoCompartido(), cliente.getCliente(), d, zona, cantidadPersonas, usaBaul, llevaMascota);
+	}
+
+	public void setConfiguracion(ConfiguracionSimulacion cs) {
+		this.simulacion.setConfiguracion(cs);
+	}
+
+	public void iniciarSimulacion() {
+		this.simulacion.iniciarSimulacion(this);
 	}
 }

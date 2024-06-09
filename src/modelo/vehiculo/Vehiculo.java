@@ -48,5 +48,5 @@ public abstract class Vehiculo implements Serializable{
 	}
 	
 	
-	protected abstract int califica(boolean pideBaul, int cantPax);
+	public abstract int califica(boolean pideBaul, int cantPax);
 }

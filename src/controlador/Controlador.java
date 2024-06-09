@@ -46,8 +46,15 @@ public class Controlador implements ActionListener{
 			}
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Aceptar")) {
-			//aca hay que vincular el boton de aceptar con el modelo, pasando
-			//todos los datos de configuracion al mismo.
+			if(this.vistaConfiguracion.getTipoConfiguracion() == "Configuracion existente") {
+				this.modelo.setConfiguracion(null);
+			}else {
+				this.modelo.setConfiguracion(this.vistaConfiguracion.getConfiguracion());
+			}
+			
+			this.modelo.iniciarSimulacion();
+			this.vistaConfiguracion.setVisible(false);
+			this.vistaLogin.setVisible(true);			
 			this.vistaLogin.habilitarPanelLogin(true);
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Registrarse")) {

@@ -1,8 +1,5 @@
 package modelo.viaje;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import excepciones.PedidoRechazadoException;
@@ -32,8 +29,10 @@ public class SubsistemaViaje {
         return pedido;
     }
     
-    public static void solicitarViaje(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
+    public static IViaje solicitarViaje(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
     	Pedido pedido = crearPedido(recursoCompartido, cliente, distancia, zona, cantidadPersonas, usoBaul, llevaMascota);
-    	recursoCompartido.agregarViaje(SubsistemaViaje.crearViaje(pedido));
+    	IViaje viaje = SubsistemaViaje.crearViaje(pedido);
+    	recursoCompartido.agregarViaje(viaje);
+    	return viaje;
     }
 }

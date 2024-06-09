@@ -1,14 +1,11 @@
 package modelo.sistema;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
 import excepciones.PedidoRechazadoException;
-import modelo.chofer.Chofer;
 import modelo.chofer.ChoferThread;
 import modelo.usuario.Cliente;
 import modelo.usuario.ClienteThread;
@@ -22,16 +19,13 @@ public class RecursoCompartido extends Observable {
 	private ArrayList<IViaje> viajesIniciados = new ArrayList<IViaje>();
 	private InfoVentana informacion;
 
-	public RecursoCompartido() {}
+	public RecursoCompartido() {
+		this.informacion = new InfoVentana();
+	}
 
 	public synchronized void asignarVehiculo() {
 		while (Simulacion.getChoferesActivos() > 0 && this.viajesSolicitados.isEmpty()) {// mientras la simulacion este activa y NO haya viajes solicitados, espera...															
 			try {
-				this.informacion.setChofer("");
-				this.informacion.setCliente("");
-				this.informacion.setMensaje("En espera de solicitudes de viajes");
-				setChanged();
-				notifyObservers(this.informacion);
 				wait();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -51,14 +45,14 @@ public class RecursoCompartido extends Observable {
 			
 			viaje.setStatus("con vehiculo");
 			
-			this.informacion.setCliente(viaje.getCliente().getNombre());
-			this.informacion.setMensaje("Se asigna un vehiculo al viaje del cliente " + viaje.getCliente() + " y queda a la espera de ser tomado por un chofer");
+			this.informacion.setCliente(viaje.getCliente().getUsuario());
+			this.informacion.setMensaje("Se asigna un vehiculo al viaje del cliente " + viaje.getCliente().getNombre() + " y queda a la espera de ser tomado por un chofer");
 			setChanged();
 			notifyObservers(this.informacion);
 		}
 		else {
 			for(IViaje viaje: this.viajesSolicitados) {
-				this.informacion.setCliente(viaje.getCliente().getNombre());
+				this.informacion.setCliente(viaje.getCliente().getUsuario());
 				this.informacion.setMensaje("Se cancelo el viaje de " + viaje.getCliente().getNombre() + " por falta de choferes");
 				setChanged();
 				notifyObservers(this.informacion);
@@ -80,18 +74,19 @@ public class RecursoCompartido extends Observable {
 		}
 		
 		this.informacion.setChofer(chofer.getNombre());
-		this.informacion.setCliente("");
 		if(Simulacion.getClientesActivos() > 0) {
 			IViaje viaje = this.viajesConVehiculo.get(0);
-			viaje.setChofer(chofer.getChoferDTO());
+			viaje.setChofer(chofer.getChofer());
 			viaje.setStatus("iniciado");
 			this.viajesConVehiculo.remove(viaje);
 			this.viajesIniciados.add(viaje);
-			this.informacion.setMensaje("El chofer " + chofer.getNombre() + " toma el viaje del cliente " + this.viajesConVehiculo.get(0).getCliente().getNombre() + "\n *** El viaje esta iniciado ***");
+			this.informacion.setCliente(viaje.getCliente().getUsuario());
+			this.informacion.setMensaje("El chofer " + chofer.getNombre() + " toma el viaje del cliente " + viaje.getCliente().getNombre());
 			setChanged();
 			notifyObservers(this.informacion);
 		}
 		else{
+			this.informacion.setCliente("");
 			this.informacion.setMensaje("El chofer " + chofer.getNombre() + " finalizo su turno");
 			setChanged();
 			notifyObservers(this.informacion);
@@ -111,10 +106,10 @@ public class RecursoCompartido extends Observable {
 		}
 		
 		this.informacion.setChofer("");
-		this.informacion.setCliente(cliente.getCliente().getNombre());
+		this.informacion.setCliente(cliente.getCliente().getUsuario());
 		
-		if(Simulacion.getChoferesActivos() > 0) {
-			this.informacion.setMensaje("El cliente " + cliente.getCliente().getNombre() + " pago el viaje");
+		if(cliente.getViaje().getStatus() == "iniciado") {
+			this.informacion.setMensaje(cliente.getCliente().getNombre() + " pago el viaje");
 			setChanged();
 			notifyObservers(this.informacion);
 			cliente.getViaje().setStatus("pagado");
@@ -134,7 +129,7 @@ public class RecursoCompartido extends Observable {
 		
 		while (iterator.hasNext() && viaje == null) {
 			IViaje aux = iterator.next();
-			if (aux.getChofer() == chofer.getChoferDTO()) {
+			if (aux.getChofer() == chofer.getChofer()) {
 				viaje = aux;
 			}
 		}
@@ -154,13 +149,14 @@ public class RecursoCompartido extends Observable {
 		Empresa.getInstance().addViaje(viaje);
 		
 		this.informacion.setChofer(chofer.getNombre());
-		this.informacion.setCliente("");
+		this.informacion.setCliente(viaje.getCliente().getUsuario());
 		this.informacion.setMensaje("El chofer " + chofer.getNombre() + " finalizo su viaje");
 		setChanged();
 		notifyObservers(this.informacion);
 		
 		//Si fue su ultimo viaje o el viaje era el ultimo del ultimo cliente
 		if(chofer.getViajesRestantes() == 1 || Simulacion.getClientesActivos() == 0) {
+			this.informacion.setCliente("");
 			this.informacion.setMensaje("El chofer " + chofer.getNombre() + " finalizo su turno");
 			setChanged();
 			notifyObservers(this.informacion);
@@ -172,23 +168,17 @@ public class RecursoCompartido extends Observable {
 		this.vehiculosDisponibles.add(vehiculo);
 	}
 
-	public void agregarViaje(IViaje viaje) {
+	public synchronized void agregarViaje(IViaje viaje) {
 		this.viajesSolicitados.add(viaje);
+		notifyAll();
 	}
 
 	public void validarPedido(Cliente cliente, List<Vehiculo> vehiculos, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
 		boolean valido = false;
 		
 		this.informacion.setChofer("");
-		this.informacion.setCliente(cliente.getNombre());
-		
-		if (cantidadPersonas > 10) {
-			this.informacion.setMensaje("El cliente "+ cliente.getNombre() + " quiso realizar un pedido invalido de " + cantidadPersonas + " personas. El pedido fue rechazado");
-    		setChanged();
-    		notifyObservers(this.informacion);
-    		throw new PedidoRechazadoException("Cantidad de personas invalido");
-		}
-		
+		this.informacion.setCliente(cliente.getUsuario());
+				
 		Iterator<Vehiculo> iteratorVehiculos = vehiculos.iterator();
     	while(iteratorVehiculos.hasNext() && !valido) {
     		Vehiculo aux = iteratorVehiculos.next();
@@ -199,10 +189,13 @@ public class RecursoCompartido extends Observable {
     	
     	if (!valido) {
     		this.informacion.setMensaje("No existen vehiculos aptos para el pedido del cliente " + cliente.getNombre() + ". El pedido fue rechazado");
-    		setChanged();
-    		notifyObservers(this.informacion);
     		throw new PedidoRechazadoException("No existen vehiculos aptos para el pedido del cliente");
     	}
+    	else{
+    		this.informacion.setMensaje("El cliente " + cliente.getNombre() + " Solicito un viaje");
+    	}
+    	setChanged();
+    	notifyObservers(this.informacion);
 	}
 
 }

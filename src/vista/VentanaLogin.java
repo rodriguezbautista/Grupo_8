@@ -151,6 +151,7 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 		panel_27.setLayout(new BoxLayout(panel_27, BoxLayout.Y_AXIS));
 		
 		estandar = new JRadioButton("Estandar");
+		estandar.setActionCommand("Estandar");
 		buttonGroup.add(estandar);
 		panel_27.add(estandar);
 		

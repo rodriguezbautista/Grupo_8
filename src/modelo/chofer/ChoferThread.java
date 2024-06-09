@@ -1,14 +1,17 @@
 package modelo.chofer;
 
+import modelo.sistema.RecursoCompartido;
 import modelo.sistema.Simulacion;
 
 public class ChoferThread extends Thread {
 	private Chofer chofer;
 	private int viajesRestantes;
+	private RecursoCompartido rc;
 	
-	public ChoferThread(int viajesRestantes, Chofer chofer) {
+	public ChoferThread(Chofer chofer, int viajesRestantes, RecursoCompartido rc) {
 		this.viajesRestantes = viajesRestantes;
 		this.chofer = chofer;
+		this.rc = rc;
 	}
 	
 	public int getViajesRestantes() {
@@ -22,18 +25,14 @@ public class ChoferThread extends Thread {
 	@Override
 	public void run() {
 		while(Simulacion.getClientesActivos() > 0 && viajesRestantes > 0) {
-			//tomar viaje
-			
+			this.rc.tomarViaje(this);
+			this.rc.finalizar(this);
 			this.viajesRestantes--;
-			if(this.viajesRestantes == 0) {
-				Simulacion.setChoferesActivos(Simulacion.getChoferesActivos() - 1);
-			}
-			//finaliza
 		}
+		Simulacion.setChoferesActivos(Simulacion.getChoferesActivos() - 1);
 	}
 
-	public Chofer getChoferDTO() {
-		// TODO Auto-generated method stub
-		return null;
+	public Chofer getChofer() {
+		return this.chofer;
 	}
 }

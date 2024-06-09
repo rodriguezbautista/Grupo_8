@@ -21,4 +21,8 @@ public abstract class ClienteThread extends Thread {
 	public IViaje getViaje() {
 		return this.viaje;
 	}
+	
+	public void setViaje(IViaje viaje) {
+		this.viaje = viaje;
+	}
 }

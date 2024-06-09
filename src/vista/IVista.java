@@ -17,4 +17,5 @@ public interface IVista {
 	boolean getLlevaMascota();
 	String getZona();
 	public void start();
+	public void setVisible(boolean b);
 }

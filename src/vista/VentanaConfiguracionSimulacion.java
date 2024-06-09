@@ -14,6 +14,9 @@ import java.awt.event.KeyListener;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.border.TitledBorder;
+
+import modelo.sistema.ConfiguracionSimulacion;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -64,27 +67,11 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 	private JButton btnAceptar;
 
 	/**
-	 * Launch the application.
-	 */
-	public void start() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaConfiguracionSimulacion frame = new VentanaConfiguracionSimulacion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public VentanaConfiguracionSimulacion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1000, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -102,11 +89,13 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		
 		this.rdbtnUsarConfig = new JRadioButton("Usar Configuracion Existente");
 		this.rdbtnUsarConfig.addMouseListener(this);
+		this.rdbtnUsarConfig.setActionCommand("Configuracion existente");
 		buttonGroup.add(this.rdbtnUsarConfig);
 		this.panelCentralIzq.add(this.rdbtnUsarConfig);
 		
 		this.rdbtnConfigurar = new JRadioButton("Configurar Simulacion");
 		this.rdbtnConfigurar.addMouseListener(this);
+		this.rdbtnConfigurar.setActionCommand("Configuracion nueva");
 		buttonGroup.add(this.rdbtnConfigurar);
 		this.panelCentralIzq.add(this.rdbtnConfigurar);
 		
@@ -245,9 +234,35 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		boolean habilitado = !(this.textFieldCantChoferes.getText().isEmpty()) && !(this.textFieldCantClientes.getText().isEmpty()) && !(this.textFieldCantMaxViajesChofer.getText().isEmpty())
-				&& !(this.textFieldCantPedidosClientes.getText().isEmpty()) && !(this.textFieldCantAuto.getText().isEmpty()) && !(this.textFieldCantCombis.getText().isEmpty())
-				&& !(this.textFieldCantMotos.getText().isEmpty());
+		Integer cantChoferes = null;
+		Integer cantClientes = null;
+		Integer cantMaxViajesChofer = null;
+		Integer cantMaxPedidosCliente = null;
+		Integer cantAuto = null;
+		Integer cantCombi = null;
+		Integer cantMoto = null;
+		
+		//Se transforman a Integer si son numeros, sino mantienen el null
+		try {
+			cantChoferes = Integer.parseInt(this.textFieldCantChoferes.getText());		
+			cantClientes = Integer.parseInt(this.textFieldCantClientes.getText());		
+			cantMaxViajesChofer = Integer.parseInt(this.textFieldCantMaxViajesChofer.getText());
+			cantMaxPedidosCliente = Integer.parseInt(this.textFieldCantPedidosClientes.getText());		
+			cantAuto = Integer.parseInt(this.textFieldCantAuto.getText());			
+			cantCombi = Integer.parseInt(this.textFieldCantCombis.getText());		
+			cantMoto = Integer.parseInt(this.textFieldCantMotos.getText());			
+		}catch(NumberFormatException nfe) {
+		}
+		
+		//Si alguno es null (no se pudo parsear a entero) o tiene un numero ilogico, habilitado es false
+		boolean habilitado = !(this.textFieldCantChoferes.getText().isEmpty() || cantChoferes == null || cantChoferes < 1)
+				&& !(this.textFieldCantClientes.getText().isEmpty() || cantClientes == null || cantClientes < 1)
+				&& !(this.textFieldCantMaxViajesChofer.getText().isEmpty() || cantMaxViajesChofer == null || cantMaxViajesChofer < 1)
+				&& !(this.textFieldCantPedidosClientes.getText().isEmpty() || cantMaxPedidosCliente == null || cantMaxPedidosCliente < 1)
+				&& !(this.textFieldCantAuto.getText().isEmpty() || cantAuto == null || cantAuto < 1)
+				&& !(this.textFieldCantCombis.getText().isEmpty() || cantCombi == null || cantCombi < 1)
+				&& !(this.textFieldCantMotos.getText().isEmpty() || cantMoto == null || cantMoto < 1);
+		
 		this.btnAceptar.setEnabled(habilitado);
 	}
 	
@@ -277,6 +292,21 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 		this.textFieldCantCombis.setEditable(b);
 		this.textFieldCantMotos.setEditable(b);
 		this.btnAceptar.setEnabled(!b);
+	}
+	
+	public String getTipoConfiguracion() {
+		return this.buttonGroup.getSelection().getActionCommand();
+	}
+	
+	//Para este entonces, los campos de texto ya se validaron
+	public ConfiguracionSimulacion getConfiguracion() {
+		return new ConfiguracionSimulacion(Integer.parseInt(this.textFieldCantChoferes.getText()),
+				Integer.parseInt(this.textFieldCantClientes.getText()),
+				Integer.parseInt(this.textFieldCantMaxViajesChofer.getText()),
+				Integer.parseInt(this.textFieldCantPedidosClientes.getText()),
+				Integer.parseInt(this.textFieldCantAuto.getText()),
+				Integer.parseInt(this.textFieldCantCombis.getText()),
+				Integer.parseInt(this.textFieldCantMotos.getText()));
 	}
 
 	public void mouseEntered(MouseEvent e) {

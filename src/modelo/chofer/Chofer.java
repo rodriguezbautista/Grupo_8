@@ -18,9 +18,9 @@ public abstract class Chofer implements Serializable{
      * @param dni El número de identificación del chofer.
      * @param nombre El nombre del chofer.
      */
-	public Chofer(String dni, String nombre) {
-		this.dni = dni;
+	public Chofer(String nombre, String dni) {
 		this.nombre = nombre;
+		this.dni = dni;
 	}
 	/**
      * Método abstracto para obtener el sueldo de un chofer.

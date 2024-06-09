@@ -6,7 +6,7 @@ import modelo.chofer.ChoferContratado;
 
 public class ChoferFactory {
 
-	public Chofer getChofer(String nombre, String dni, String tipo) {
+	public static Chofer getChofer(String nombre, String dni, String tipo) {
 		Chofer chofer = null;
 
 		if (tipo == "Permanente") {

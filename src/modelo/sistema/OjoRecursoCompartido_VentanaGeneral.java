@@ -15,6 +15,7 @@ public class OjoRecursoCompartido_VentanaGeneral implements Observer{
 		this.rc = rc;
 		this.ventana = ventana;
 		this.rc.addObserver(this);
+		System.out.println("Añadi observer al rc");
 	}
 	
 	@Override

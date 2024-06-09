@@ -19,12 +19,13 @@ public class ViajeFactory {
 		if(pedido.getZona().equalsIgnoreCase("Estandar")) {
 			viaje=new ViajeZonaEstandar(pedido);
 		}
-		else if(pedido.getZona().equalsIgnoreCase("Calle sin afaltar")) {
+		else if(pedido.getZona().equalsIgnoreCase("Calle sin asfaltar")) {
 			viaje=new ViajeZonaCalleSinAfaltar(pedido);
 		}
 		else if(pedido.getZona().equalsIgnoreCase("Zona Peligrosa")){
 			viaje=new ViajeZonaPeligrosa(pedido);
 		}
+		
 		
 		if(pedido.getMascota()) {
 			viaje=new DecoratorConMascota(viaje);
