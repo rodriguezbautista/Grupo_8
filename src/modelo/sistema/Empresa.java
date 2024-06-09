@@ -53,6 +53,7 @@ public class Empresa {
 
 	public void setSimulacion(Simulacion simulacion) {
 		this.simulacion = simulacion;
+	}
     
 	public HashMap<String, Cliente> getClientes() {
 		return clientes;
