@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
 
 public class VentanaConfiguracionSimulacion extends JFrame implements KeyListener, MouseListener{
 
@@ -317,5 +318,4 @@ public class VentanaConfiguracionSimulacion extends JFrame implements KeyListene
 	}
 	public void mouseReleased(MouseEvent e) {
 	}
-
 }

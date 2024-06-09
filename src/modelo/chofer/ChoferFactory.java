@@ -5,7 +5,14 @@ import modelo.chofer.ChoferTemporario;
 import modelo.chofer.ChoferContratado;
 
 public class ChoferFactory {
-
+	
+	/**
+	 * Metodo que instancia a un chofer dependiendo del tipo ingresado como parametro.<br>
+	 * @param nombre: nombre del chofer.<br>
+	 * @param dni: dni del chofer.<br>
+	 * @param tipo: tipo de chofer.<br>
+	 * @return retorna un chofer del tipo ingresado como parametro o null.<br>
+	 */
 	public static Chofer getChofer(String nombre, String dni, String tipo) {
 		Chofer chofer = null;
 

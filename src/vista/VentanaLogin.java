@@ -348,9 +348,9 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 		this.textFieldRgeistNbre.addKeyListener(this);
 		this.textFieldRegistUsuario.addKeyListener(this);
 		this.textFieldRegistContras.addKeyListener(this);
-		this.panelLogeo.setVisible(true);
-		this.panelCentral.setVisible(false);
 		this.panelSur.setVisible(false);
+		this.panelCentral.setVisible(false);
+		this.panelLogeo.setVisible(false);
 	}
 
 	

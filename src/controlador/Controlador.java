@@ -15,15 +15,24 @@ public class Controlador implements ActionListener{
 	private VentanaConfiguracionSimulacion vistaConfiguracion;
 	private Empresa modelo;
 	
-	
-	public Controlador(IVista vista, VentanaConfiguracionSimulacion vistaConfiguracion) {
+	/**
+	 * Constructor del controlador. Asigna al mismo las referencias a las ventanas y al modelo.<br>
+	 * @param vista: parametro correspondiente a la ventanaLogin.<br>
+	 * @param vistaConfiguracion: parametro correspondiente a la ventana de configuracion.<br>
+	 * <br> Precondicion: parametro vistaLogin diferente de null.<br>
+	 * <br> Precondicion: parametro vistaConfiguracion diferente de null.<br>
+	 */
+	public Controlador(IVista vistaLogin, VentanaConfiguracionSimulacion vistaConfiguracion) {
 		this.modelo=Empresa.getInstance();
-		this.vistaLogin = vista;
+		this.vistaLogin = vistaLogin;
 		this.vistaLogin.setActionListener(this);
 		this.vistaConfiguracion = vistaConfiguracion;
 		this.vistaConfiguracion.setActionListener(this);
 	}
 	
+	/**
+	 * Metodo que escucha eventos de las ventanas. Se activa al presionar botones en las ventanas.<br> 
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equalsIgnoreCase("Finalizar Pedidos")) {
 			this.vistaLogin.deshabilitarBotones();
@@ -68,9 +77,9 @@ public class Controlador implements ActionListener{
 		else if(e.getActionCommand().equalsIgnoreCase("Login")) {
 			//aca se crea otro thread
 			this.vistaLogin.limpiarCamposLogin();
-			this.vistaLogin.habilitarBtnFinalizarPedidos(true);
-			this.vistaLogin.habilitarPanelPedidos(true);
 			this.vistaLogin.habilitarPanelLogin(false);
+			this.vistaLogin.habilitarPanelPedidos(true);
+			this.vistaLogin.habilitarBtnFinalizarPedidos(true);
 		}
 	}
 }

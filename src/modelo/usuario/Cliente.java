@@ -2,6 +2,9 @@ package modelo.usuario;
 
 import java.io.Serializable;
 
+/**
+ * Clase que modela los datos de un cliente.<br>
+ */
 public class Cliente implements Serializable{
 	private String nombre;
 	private String usuario;

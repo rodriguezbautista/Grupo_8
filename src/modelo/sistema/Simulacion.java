@@ -18,6 +18,9 @@ import persistencia.ConfiguracionDAO;
 import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;
 
+/**
+ * Clase que modela la simulacion.<br>
+ */
 public class Simulacion {
 	private RecursoCompartido rc;
 	private ConfiguracionSimulacion cs;

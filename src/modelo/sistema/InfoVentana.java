@@ -1,8 +1,9 @@
 package modelo.sistema;
 
-import modelo.chofer.Chofer;
-import modelo.usuario.Cliente;
-
+/**
+ * Clase que representa la informacion sobre cambios ocurridos en el recurso compartido.<br>
+ * El recurso compartido evnia esta informacion al notificar sobre dichos cambios.<br>
+ */
 public class InfoVentana {
 	private String chofer;
 	private String cliente;
@@ -31,6 +32,5 @@ public class InfoVentana {
 	public void setCliente(String cliente) {
 		this.cliente = cliente;
 	}
-	
 	
 }

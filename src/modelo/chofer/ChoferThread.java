@@ -3,6 +3,9 @@ package modelo.chofer;
 import modelo.sistema.RecursoCompartido;
 import modelo.sistema.Simulacion;
 
+/**
+ * Clase que modela un chofer thread.<br>
+ */
 public class ChoferThread extends Thread {
 	private Chofer chofer;
 	private int viajesRestantes;

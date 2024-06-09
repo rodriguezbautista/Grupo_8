@@ -7,6 +7,9 @@ import modelo.sistema.Util;
 import modelo.viaje.IViaje;
 import modelo.viaje.SubsistemaViaje;
 
+/**
+ * Clase que modela a un cliente thread generado automaticamente por la simulacion.<br>
+ */
 public class ClienteThreadRobot extends ClienteThread {
 	private String[] zonas;
 	private int viajesRestantes;
@@ -18,7 +21,7 @@ public class ClienteThreadRobot extends ClienteThread {
 		this.rc = rc;
 		this.zonas = new String[]{"Zona Peligrosa", "Calle sin asfaltar", "Estandar"};
 	}
-
+	
 	@Override
 	public void run() {		
 
