@@ -1,20 +1,20 @@
 package modelo.sistema;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
 import excepciones.PedidoRechazadoException;
-import modelo.chofer.Chofer;
 import modelo.chofer.ChoferThread;
 import modelo.usuario.Cliente;
 import modelo.usuario.ClienteThread;
 import modelo.vehiculo.Vehiculo;
 import modelo.viaje.IViaje;
 
+/**
+ * Clase que modela el recurso compartido por los hilos involucrados.<br>
+ */
 public class RecursoCompartido extends Observable {
 	private ArrayList<Vehiculo> vehiculosDisponibles = new ArrayList<Vehiculo>();
 	private ArrayList<IViaje> viajesSolicitados = new ArrayList<IViaje>();
@@ -22,8 +22,12 @@ public class RecursoCompartido extends Observable {
 	private ArrayList<IViaje> viajesIniciados = new ArrayList<IViaje>();
 	private InfoVentana informacion;
 
-	public RecursoCompartido() {}
-
+	public RecursoCompartido() {
+	}
+	
+	/**
+	 * Metodo sincronizado que intenta asignar vehiculos a viajes en situacion de solicitado.<br>
+	 */
 	public synchronized void asignarVehiculo() {
 		while (Simulacion.getChoferesActivos() > 0 && this.viajesSolicitados.isEmpty()) {// mientras la simulacion este activa y NO haya viajes solicitados, espera...															
 			try {
@@ -67,7 +71,13 @@ public class RecursoCompartido extends Observable {
 		}
 		notifyAll();// si termino la simulacion o asigno un vehiculo, avisa a todos los hilos
 	}
-
+	
+	/**
+	 * Metodo sincronizado, llamado por los choferesThread, que intenta tomar un viaje con vehiculo <br>
+	 * e iniciarlo.<br> 
+	 * @param chofer: parametro correspondiente al choferThread que intenta tomar un viaje.<br>
+	 * <br> Precondicion: parametro chofer diferente de null.<br>
+	 */
 	public synchronized void tomarViaje(ChoferThread chofer) {
 		
 		while (Simulacion.getClientesActivos() > 0 && this.viajesConVehiculo.isEmpty()) { //mientras la simulacion este activa y NO haya viajes con vehiculo, espera....
@@ -99,7 +109,12 @@ public class RecursoCompartido extends Observable {
 		
 		notifyAll();
 	}
-
+	
+	/**
+	 * metodo sincronizado que, llamado por los clientesThread, que intentan pagar un viaje.<br>
+	 * @param cliente: parametro correspondiente al clienteThread que quiere pagar su viaje.<br>
+	 * <br> Precondicion: Parametro cliente diferente de null.<br>
+	 */
 	public synchronized void pagar(ClienteThread cliente) {
 		while(cliente.getViaje().getStatus() != "iniciado" && Simulacion.getChoferesActivos() > 0) {
 			try {
@@ -127,7 +142,12 @@ public class RecursoCompartido extends Observable {
 		}
 		notifyAll();
 	}
-
+	
+	/**
+	 * metodo sincronizado, llamado por los choferesThread, que intenta finalizar un viaje.<br>
+	 * @param chofer: Parametro correspondiente al choferThread que quiere finalizar su viaje.<br>
+	 * <br> precondicion: parametro chofer distinto de null.<br>
+	 */
 	public synchronized void finalizar(ChoferThread chofer) {
 		IViaje viaje = null;
 		Iterator<IViaje> iterator = this.viajesIniciados.iterator();
@@ -175,7 +195,21 @@ public class RecursoCompartido extends Observable {
 	public void agregarViaje(IViaje viaje) {
 		this.viajesSolicitados.add(viaje);
 	}
-
+	
+	/**
+	 * Metodo que valida un pedido realizado. 
+	 * @param cliente: cliente que realiza el pedido.<br>
+	 * @param vehiculos: arrayList de vehiculos disponibles.<br>
+	 * @param zona: zona del viaje.<br>
+	 * @param cantidadPersonas: cantidad de personas a transportar.<br>
+	 * @param usoBaul: valor booleano correspondiente al uso del baul.<br>
+	 * @param llevaMascota: valor booleano correspondiente al transporte de mascota.<br>
+	 * @throws PedidoRechazadoException: excepcion que se lanzara cuando el pedido sea rechazado.<br>
+	 * <br> Precondicion: parametro cliente diferente de null.<br>
+	 * <br> Precondicion: parametro vehiculos diferente de null.<br>
+	 * <br> Precondicion: parametro zona diferente de null y diferente de vacio.<br> 
+	 * <br> Precondicion: parametro cantidadPersonas mayor a 0.<br>
+	 */
 	public void validarPedido(Cliente cliente, List<Vehiculo> vehiculos, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException{
 		boolean valido = false;
 		

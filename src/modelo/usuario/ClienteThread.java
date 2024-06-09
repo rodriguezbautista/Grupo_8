@@ -2,6 +2,9 @@ package modelo.usuario;
 
 import modelo.viaje.IViaje;
 
+/**
+ * Clase que modela a un cliente thread.<br>
+ */
 public abstract class ClienteThread extends Thread {
 	private Cliente clienteDTO;
 	private IViaje viaje;

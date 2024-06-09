@@ -1,5 +1,8 @@
 package excepciones;
 
+/**
+ * Clase que modela la excepcion que se lanza cuando se quiere acceder a un vehiculo inexistente.<br>
+ */
 public class VehiculoInexistenteException extends Exception {
 
 	public VehiculoInexistenteException() {

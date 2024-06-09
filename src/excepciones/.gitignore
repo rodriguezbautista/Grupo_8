@@ -3,3 +3,4 @@
 /PedidoRechazadoException.class
 /UsuarioExistenteException.class
 /VehiculoInexistenteException.class
+/CredencialesInvalidasException.class

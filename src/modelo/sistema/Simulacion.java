@@ -1,5 +1,8 @@
 package modelo.sistema;
 
+/**
+ * Clase que modela la simulacion.<br>
+ */
 public class Simulacion {
 	private RecursoCompartido rc;
 	private static int clientesActivos;

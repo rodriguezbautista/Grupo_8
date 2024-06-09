@@ -4,6 +4,7 @@ import excepciones.VehiculoInexistenteException;
 
 public class VehiculoFactory {
 	/**
+	 * Metodo que instancia un vehiculo dependiendo del tipo recibido como parametro.<br>
 	 * @param tipo: tipo de vehiculo.<br>
 	 * @param patente: patente del vehiculo.<br>
 	 * <br> Precondicion: Patente distinta de null.<br>
