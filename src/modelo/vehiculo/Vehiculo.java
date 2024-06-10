@@ -30,9 +30,14 @@ public abstract class Vehiculo implements Serializable{
 	public Integer getPrioridad(Pedido pedido) {
 		Integer valorPrioridad = null;
 		
-		if(verificaPasajeros(pedido.getCantPersonas()) && verificaBaul(pedido.usoBaul()) && verificaMascota(pedido.getMascota()))
-			valorPrioridad = califica(pedido.usoBaul(), pedido.getCantPersonas());
-		
+		if(verificaPasajeros(pedido.getCantPersonas()))
+			return valorPrioridad;
+		if(verificaBaul(pedido.usoBaul()))
+			return valorPrioridad;
+		if(verificaMascota(pedido.getMascota()))
+			return valorPrioridad;
+			
+		valorPrioridad = califica(pedido.usoBaul(), pedido.getCantPersonas());
 		return valorPrioridad;
 	}
 	

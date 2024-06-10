@@ -1,6 +1,5 @@
 package modelo.sistema;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,7 +11,6 @@ import excepciones.ViajeEnCursoException;
 import excepciones.ViajeNoIniciadoException;
 import modelo.chofer.Chofer;
 import modelo.usuario.Cliente;
-import modelo.usuario.ClienteThreadLogeado;
 import modelo.vehiculo.Vehiculo;
 import modelo.viaje.IViaje;
 import modelo.viaje.SubsistemaViaje;

@@ -118,8 +118,8 @@ public class RecursoCompartido extends Observable {
 	
 	/**
 	 * metodo sincronizado que, llamado por los clientesThread, que intentan pagar un viaje.<br>
-	 * @param cliente: parametro correspondiente al clienteThread que quiere pagar su viaje.<br>
-	 * <br> Precondicion: Parametro cliente diferente de null.<br>
+	 * @param viaje: parametro correspondiente al clienteThread que quiere pagar su viaje.<br>
+	 * <br> Precondicion: Parametro viaje diferente de null.<br>
 	 */
 	public synchronized void pagar(IViaje viaje) {
 		while(viaje.getStatus() != "iniciado" && Simulacion.getChoferesActivos() > 0) {
