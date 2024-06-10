@@ -89,6 +89,7 @@ public class Controlador implements ActionListener{
 				this.vistaLogin.habilitarPanelPedidos(true);
 				this.vistaLogin.habilitarPanelLogin(false);
 			} catch (UsuarioExistenteException e1) {
+				this.vistaLogin.popup(e1.getMessage());
 			};
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Login")) {
@@ -101,6 +102,7 @@ public class Controlador implements ActionListener{
 				this.vistaLogin.habilitarPanelPedidos(true);
 				this.vistaLogin.habilitarBtnFinalizarPedidos(true);
 			} catch (CredencialesInvalidasException e1) {
+				this.vistaLogin.popup(e1.getMessage());
 			}
 		}
 		else if (e.getActionCommand().equalsIgnoreCase("Persistir")) {

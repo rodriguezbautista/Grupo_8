@@ -22,4 +22,5 @@ public interface IVista {
 	public String getContraseniaRegistrado();
 	public String getUsuarioLogeado();
 	public String getContraseniaLogeado();
+	public void popup(String string);
 }

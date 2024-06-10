@@ -121,8 +121,8 @@ public class Empresa {
 	 */
 	public void logearCliente(String usuario, String contrasenia) throws CredencialesInvalidasException{
 		Cliente cliente = this.clientes.get(usuario);
-		if (cliente == null || !cliente.getContrasenia().equals(cliente.getContrasenia()))
-			throw new CredencialesInvalidasException();
+		if (cliente == null || !cliente.getContrasenia().equals(contrasenia))
+			throw new CredencialesInvalidasException("El nombre de usuario o la contraseña son invalidos, intente nuevamente");
 		this.simulacion.setClienteLogeado(cliente);
 	}
 	
@@ -140,7 +140,7 @@ public class Empresa {
 	 */
 	public void registrarCliente(String nombre, String usuario, String contrasenia) throws UsuarioExistenteException{
 		if (this.clientes.get(usuario) != null) {
-			throw new UsuarioExistenteException();
+			throw new UsuarioExistenteException("El usuario " + usuario + " ya existe en el sistema, use otro nombre");
 		}
 		Cliente cliente = new Cliente(nombre, usuario, contrasenia);
 		this.clientes.put(usuario, cliente);

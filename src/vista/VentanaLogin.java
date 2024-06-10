@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
@@ -112,9 +113,10 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
                 ventana.dispose();
             }
         });
-        //boton invisible para persistir al cerrar la ventana
         
+        //boton invisible para persistir al cerrar la ventana
         persistir = new JButton("Persistir");
+        
 		setBounds(100, 100, 800, 600);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -433,6 +435,10 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 		this.btnLogin.addActionListener(actionlistener);
 		this.btnRegistrarse.addActionListener(actionlistener);
 		this.persistir.addActionListener(actionlistener);
+	}
+	
+	public void popup(String info) {
+		JOptionPane.showMessageDialog(this, info, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override
