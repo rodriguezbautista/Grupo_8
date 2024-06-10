@@ -24,7 +24,6 @@ public class OjoRecursoCompartido_VentanaGeneral implements Observer{
 		this.rc = rc;
 		this.ventana = ventana;
 		this.rc.addObserver(this);
-		System.out.println("Añadi observer al rc");
 	}
 	
 	@Override
@@ -33,10 +32,10 @@ public class OjoRecursoCompartido_VentanaGeneral implements Observer{
 			this.info = (InfoVentana) arg;
 			
 			this.ventana.appendTextGeneral(this.info.getMensaje());//muentra en el campo de texto general
-			if(this.info.getChofer().equalsIgnoreCase("Chofer")) {
+			if(this.info.getChofer().equalsIgnoreCase("Chofer 1")) {
 				 this.ventana.appendTextChofer(this.info.getMensaje());
 			 } 
-			 if(this.info.getCliente().equalsIgnoreCase("Cliente")) {
+			 if(this.info.getCliente().equalsIgnoreCase("Cliente 1")) {
 		 	   this.ventana.appendTextCliente(this.info.getMensaje());
 			 }
 	    }   

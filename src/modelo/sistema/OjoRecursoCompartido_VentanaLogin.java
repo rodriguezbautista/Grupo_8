@@ -13,6 +13,7 @@ public class OjoRecursoCompartido_VentanaLogin implements Observer{
 	private Observable rc;
 	private VentanaLogin ventana;
 	private InfoVentana info;
+	private Empresa empresa;
 	
 	/**
 	 * Constructor del observer. Guarda una referencia a su observable y a la ventana a la cual tiene que
@@ -24,14 +25,15 @@ public class OjoRecursoCompartido_VentanaLogin implements Observer{
 		this.rc = rc;
 		this.rc.addObserver(this);
 		this.ventana = ventana;
+		this.empresa = Empresa.getInstance();
 	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o == this.rc) {
+		if(o == this.rc && empresa.getClienteLogeado() != null) {
 			this.info = (InfoVentana) arg;
 			
-			if(this.info.getCliente().equalsIgnoreCase(/*Usuario logeado*/"")) {
+			if(this.info.getCliente().equalsIgnoreCase(empresa.getClienteLogeado().getUsuario())) {
 				this.ventana.appendLog(this.info.getMensaje());
 			}
 		}

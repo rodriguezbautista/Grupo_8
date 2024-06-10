@@ -6,7 +6,10 @@ import java.util.HashMap;
 
 import excepciones.CredencialesInvalidasException;
 import excepciones.PedidoRechazadoException;
+import excepciones.SinChoferesException;
 import excepciones.UsuarioExistenteException;
+import excepciones.ViajeEnCursoException;
+import excepciones.ViajeNoIniciadoException;
 import modelo.chofer.Chofer;
 import modelo.usuario.Cliente;
 import modelo.usuario.ClienteThreadLogeado;
@@ -14,6 +17,7 @@ import modelo.vehiculo.Vehiculo;
 import modelo.viaje.IViaje;
 import modelo.viaje.SubsistemaViaje;
 import persistencia.ConfiguracionDAO;
+import persistencia.EmpresaDAO;
 import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;
 
@@ -27,7 +31,6 @@ public class Empresa {
 	private ArrayList<Chofer> choferes;
 	private ArrayList<Vehiculo> vehiculos;
 	private ArrayList<IViaje> viajes;
-	private Cliente clienteLogeado;
 	
 	
 	/**
@@ -118,9 +121,9 @@ public class Empresa {
 	 */
 	public void logearCliente(String usuario, String contrasenia) throws CredencialesInvalidasException{
 		Cliente cliente = this.clientes.get(usuario);
-		if (cliente == null || cliente.getContrasenia() != contrasenia)
+		if (cliente == null || !cliente.getContrasenia().equals(cliente.getContrasenia()))
 			throw new CredencialesInvalidasException();
-		this.clienteLogeado = cliente;
+		this.simulacion.setClienteLogeado(cliente);
 	}
 	
 	/**
@@ -136,12 +139,12 @@ public class Empresa {
 	 * <br> Postcondicion: Nuevo cliente registrado o lanzamiento de excepcion.<br>
 	 */
 	public void registrarCliente(String nombre, String usuario, String contrasenia) throws UsuarioExistenteException{
-		if (this.clientes.get(usuario) == null) {
+		if (this.clientes.get(usuario) != null) {
 			throw new UsuarioExistenteException();
 		}
 		Cliente cliente = new Cliente(nombre, usuario, contrasenia);
 		this.clientes.put(usuario, cliente);
-		this.clienteLogeado = cliente;
+		this.simulacion.setClienteLogeado(cliente);
 	}
 	
 	/**
@@ -158,9 +161,28 @@ public class Empresa {
 	 * <br> Precondicion: parametro zona diferente de null y diferente de vacio.<br>
 	 * <br> Postcondicion: Se crea un nuevo viaje es situacion de solicitado o se lanza una excepcion.<br>
 	 */
-	public void solicitarViaje(double d, String zona, int cantidadPersonas, boolean usaBaul, boolean llevaMascota) throws PedidoRechazadoException {
-		ClienteThreadLogeado cliente = new ClienteThreadLogeado(this.clienteLogeado);
-		SubsistemaViaje.solicitarViaje(this.getRecursoCompartido(), cliente.getCliente(), d, zona, cantidadPersonas, usaBaul, llevaMascota);
+	public void solicitarViaje(double d, String zona, int cantidadPersonas, boolean usaBaul, boolean llevaMascota) throws PedidoRechazadoException, ViajeEnCursoException {
+		if (this.simulacion.getViajeActualClienteLogeado() != null) {
+			throw new ViajeEnCursoException("Usted tiene un viaje en curso, espere a que finalize para solicitar otro");
+		}
+		
+		IViaje viaje;
+		try {
+			viaje = SubsistemaViaje.solicitarViaje(this.getRecursoCompartido(), this.simulacion.getClienteLogeado(), d, zona, cantidadPersonas, usaBaul, llevaMascota);
+			this.simulacion.setViajeActualClienteLogeado(viaje);
+		} catch (PedidoRechazadoException | SinChoferesException e) {
+		}
+	}
+	
+	public void pagarViaje() throws ViajeNoIniciadoException {
+		IViaje viajeActual = this.simulacion.getViajeActualClienteLogeado();
+		
+		if (viajeActual == null || viajeActual.getStatus() != "iniciado") {
+			throw new ViajeNoIniciadoException("El viaje aun no esta iniciado, no se puede pagar");
+		}
+		
+		this.simulacion.pagarViaje(viajeActual);
+		this.simulacion.setViajeActualClienteLogeado(null);
 	}
 
 	public void setConfiguracion(ConfiguracionSimulacion cs) {
@@ -169,5 +191,18 @@ public class Empresa {
 
 	public void iniciarSimulacion() {
 		this.simulacion.iniciarSimulacion(this);
+	}
+
+	public Cliente getClienteLogeado() {
+		return this.simulacion.getClienteLogeado();
+	}
+
+	public void persistir() {
+		EmpresaDAO.persistir(this);
+		ConfiguracionDAO.persistir(this.simulacion.getCS());
+	}
+	
+	public void finalizarPrograma() {
+		System.exit(0);
 	}
 }

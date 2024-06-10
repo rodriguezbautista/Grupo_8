@@ -3,10 +3,12 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import excepciones.CredencialesInvalidasException;
 import excepciones.PedidoRechazadoException;
+import excepciones.UsuarioExistenteException;
+import excepciones.ViajeEnCursoException;
+import excepciones.ViajeNoIniciadoException;
 import modelo.sistema.Empresa;
-import modelo.usuario.ClienteThreadLogeado;
-import modelo.viaje.SubsistemaViaje;
 import vista.IVista;
 import vista.VentanaConfiguracionSimulacion;
 
@@ -47,11 +49,21 @@ public class Controlador implements ActionListener{
 			
 			try {
 				//envio de datos al model
-				this.modelo.solicitarViaje(12.0, zona, cantidadPersonas, usaBaul, llevaMascota);
+				try {
+					this.modelo.solicitarViaje(12.0, zona, cantidadPersonas, usaBaul, llevaMascota);
+				} catch (ViajeEnCursoException e1) {
+					this.vistaLogin.appendLog(e1.getMessage());
+				}
 				this.vistaLogin.limpiarCamposPedido();
-				this.vistaLogin.appendLog("Viaje Solicitado");
 			}
 			catch(PedidoRechazadoException msj) {
+			}
+		}
+		else if (e.getActionCommand().equalsIgnoreCase("Pagar Viaje")) {
+			try {
+				this.modelo.pagarViaje();
+			} catch (ViajeNoIniciadoException e1) {
+				this.vistaLogin.appendLog(e1.getMessage());
 			}
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Aceptar")) {
@@ -67,19 +79,33 @@ public class Controlador implements ActionListener{
 			this.vistaLogin.habilitarPanelLogin(true);
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Registrarse")) {
-			//aca se vincula el btn de registrarse con el modelo, pasando los datos
-			//al mismo y creando otro clienteDTO, agregandolo al hashmap
-			this.vistaLogin.limpiarCamposRegistrarse();
-			this.vistaLogin.habilitarBtnFinalizarPedidos(true);
-			this.vistaLogin.habilitarPanelPedidos(true);
-			this.vistaLogin.habilitarPanelLogin(false);
+			String nombre = this.vistaLogin.getNombreRegistrado();
+			String usuario = this.vistaLogin.getUsuarioRegistrado();
+			String contrasenia = this.vistaLogin.getContraseniaRegistrado();
+			try {
+				this.modelo.registrarCliente(nombre, usuario, contrasenia);
+				this.vistaLogin.limpiarCamposRegistrarse();
+				this.vistaLogin.habilitarBtnFinalizarPedidos(true);
+				this.vistaLogin.habilitarPanelPedidos(true);
+				this.vistaLogin.habilitarPanelLogin(false);
+			} catch (UsuarioExistenteException e1) {
+			};
 		}
 		else if(e.getActionCommand().equalsIgnoreCase("Login")) {
-			//aca se crea otro thread
-			this.vistaLogin.limpiarCamposLogin();
-			this.vistaLogin.habilitarPanelLogin(false);
-			this.vistaLogin.habilitarPanelPedidos(true);
-			this.vistaLogin.habilitarBtnFinalizarPedidos(true);
+			String usuario = this.vistaLogin.getUsuarioLogeado();
+			String contrasenia = this.vistaLogin.getContraseniaLogeado();
+			try {
+				this.modelo.logearCliente(usuario, contrasenia);
+				this.vistaLogin.limpiarCamposLogin();
+				this.vistaLogin.habilitarPanelLogin(false);
+				this.vistaLogin.habilitarPanelPedidos(true);
+				this.vistaLogin.habilitarBtnFinalizarPedidos(true);
+			} catch (CredencialesInvalidasException e1) {
+			}
+		}
+		else if (e.getActionCommand().equalsIgnoreCase("Persistir")) {
+			this.modelo.persistir();
+			this.modelo.finalizarPrograma();
 		}
 	}
 }

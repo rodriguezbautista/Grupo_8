@@ -6,19 +6,15 @@ import modelo.viaje.IViaje;
  * Clase que modela a un cliente thread.<br>
  */
 public abstract class ClienteThread extends Thread {
-	private Cliente clienteDTO;
+	private Cliente cliente;
 	private IViaje viaje;
 	
-	public ClienteThread(Cliente clienteDTO) {
-		this.clienteDTO = clienteDTO;
+	public ClienteThread(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	public Cliente getCliente() {
-		return this.clienteDTO;
-	}
-	
-	protected void realizarPedido() {
-		//pedidos.realizarPedido(asdasdasd);
+		return this.cliente;
 	}
 	
 	public IViaje getViaje() {

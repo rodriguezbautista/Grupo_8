@@ -1,11 +1,13 @@
 package modelo.sistema;
 
+import java.io.Serializable;
+
 import modelo.usuario.Cliente;
 
 /**
  * Clase que modela las caracteristicas de un pedido.<br>
  */
-public class Pedido {
+public class Pedido implements Serializable {
 	private String fecha;
 	private String zona;
 	private boolean mascota;

@@ -25,9 +25,7 @@ public class _main {
 		simulacion.setRc(recursoCompartido);
 		empresa.setSimulacion(simulacion);
 		
-		IPersistencia<Serializable> persistencia = new PersistenciaBIN();
-		EmpresaDAO dao = new EmpresaDAO(persistencia);
-		dao.deserializar();
+		EmpresaDAO.despersistir();
 		VentanaLogin vistaLogin = new VentanaLogin();
 		VentanaConfiguracionSimulacion ventanaConfiguracion = new VentanaConfiguracionSimulacion();
 		VentanaGeneral ventanaGeneral = new VentanaGeneral();
@@ -37,7 +35,7 @@ public class _main {
 		OjoRecursoCompartido_VentanaLogin ojoLogeado = new OjoRecursoCompartido_VentanaLogin(recursoCompartido, vistaLogin);
 		
 		ventanaGeneral.setVisible(true);
-		ventanaConfiguracion.setVisible(true);		
+		ventanaConfiguracion.setVisible(true);
 	}
 
 }

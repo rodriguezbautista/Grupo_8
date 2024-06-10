@@ -36,4 +36,10 @@ private IPersistencia<Serializable> persistencia;
 		}
 		return cs;
 	}
+	
+	public static void persistir(ConfiguracionSimulacion cs) {
+		IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+		ConfiguracionDAO dao = new ConfiguracionDAO(persistencia);
+		dao.serializar(cs);
+	}
 }

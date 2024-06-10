@@ -5,15 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import excepciones.VehiculoInexistenteException;
 import modelo.chofer.Chofer;
 import modelo.chofer.ChoferFactory;
 import modelo.chofer.ChoferThread;
 import modelo.usuario.Cliente;
 import modelo.usuario.ClienteThreadRobot;
-import modelo.vehiculo.Moto;
 import modelo.vehiculo.Vehiculo;
 import modelo.vehiculo.VehiculoFactory;
+import modelo.viaje.IViaje;
 import persistencia.ConfiguracionDAO;
 import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;
@@ -26,6 +25,8 @@ public class Simulacion {
 	private ConfiguracionSimulacion cs;
 	private static int clientesActivos;
 	private static int choferesActivos;
+	private Cliente clienteLogeado;
+	private IViaje viajeActualClienteLogeado;
 	
 	public RecursoCompartido getRc() {
 		return rc;
@@ -196,5 +197,29 @@ public class Simulacion {
 		
 		SistemaThread sistemaThread = new SistemaThread(rc); 
 		sistemaThread.start();
+	}
+
+	public void pagarViaje(IViaje viaje) {
+		this.rc.pagar(viaje);
+	}
+
+	public Cliente getClienteLogeado() {
+		return this.clienteLogeado;
+	}
+	
+	public void setClienteLogeado(Cliente clienteLogeado) {
+		this.clienteLogeado = clienteLogeado;
+	}
+
+	public IViaje getViajeActualClienteLogeado() {
+		return viajeActualClienteLogeado;
+	}
+
+	public void setViajeActualClienteLogeado(IViaje viajeActualClienteLogeado) {
+		this.viajeActualClienteLogeado = viajeActualClienteLogeado;
+	}
+
+	public ConfiguracionSimulacion getCS() {
+		return this.cs;
 	}
 }

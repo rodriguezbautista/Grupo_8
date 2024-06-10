@@ -3,6 +3,7 @@ package modelo.viaje;
 import java.util.List;
 
 import excepciones.PedidoRechazadoException;
+import excepciones.SinChoferesException;
 import modelo.sistema.Empresa;
 import modelo.sistema.Pedido;
 import modelo.sistema.RecursoCompartido;
@@ -64,8 +65,9 @@ public class SubsistemaViaje {
 	 * <br> Precondiciones: Parametro zona diferente de null y diferente de vacio.<br>
 	 * <br> Precondiciones: Parametro cantidadPersonas mayor a 0.<br>
 	 * <br> Postcondicion: agrega un viaje a la coleccion de viajes solicitados y lo devuelve o lanza excepcion.<br>
+     * @throws SinChoferesException 
      */
-    public static IViaje solicitarViaje(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException {
+    public static IViaje solicitarViaje(RecursoCompartido recursoCompartido, Cliente cliente, double distancia, String zona, int cantidadPersonas, boolean usoBaul, boolean llevaMascota) throws PedidoRechazadoException, SinChoferesException {
     	Pedido pedido = crearPedido(recursoCompartido, cliente, distancia, zona, cantidadPersonas, usoBaul, llevaMascota);
     	IViaje viaje = SubsistemaViaje.crearViaje(pedido);
     	recursoCompartido.agregarViaje(viaje);

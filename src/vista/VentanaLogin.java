@@ -19,6 +19,8 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
@@ -90,25 +92,29 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 	private JPanel panel_23;
 	private JCheckBox llevaMascota;
 	private JCheckBox usaBaul;
-
-	public void start() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaLogin frame = new VentanaLogin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPanel panelPagar;
+	private JButton btnPagarViaje;
+	private JButton persistir;
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaLogin() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		JFrame ventana = this;
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                ventana.setVisible(false);
+                persistir.doClick(); 
+                ventana.dispose();
+            }
+        });
+        //boton invisible para persistir al cerrar la ventana
+        
+        persistir = new JButton("Persistir");
 		setBounds(100, 100, 800, 600);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -199,13 +205,20 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 		this.panel_8 = new JPanel();
 		this.panelColumna2.add(this.panel_8);
 		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.Y_AXIS));
-		
+
 		this.panel_25 = new JPanel();
 		this.panel_8.add(this.panel_25);
 		
 		this.btnSolicitarViaje = new JButton("Solicitar Viaje");
 		panel_25.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		this.panel_25.add(this.btnSolicitarViaje);
+
+		this.panelPagar = new JPanel();
+		this.panel_8.add(this.panelPagar);
+		
+		this.btnPagarViaje = new JButton("Pagar Viaje");
+		panelPagar.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		this.panelPagar.add(this.btnPagarViaje);
 		
 		this.panelColumna3 = new JPanel();
 		this.panelColumna3.setBorder(new TitledBorder(null, "Estado del Viaje", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -391,7 +404,7 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 	}
 	
 	public void appendLog(String mensaje) {
-		this.textArea.append(mensaje);
+		this.textArea.append(mensaje + "\n");
 	}
 	
 	public void deshabilitarBotones() {
@@ -409,14 +422,17 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 		this.textFieldCantpersonas.setEditable(false);
 		this.llevaMascota.setEnabled(false);
 		this.usaBaul.setEnabled(false);
+		this.btnPagarViaje.setEnabled(false);
 		this.btnFinalizarPedidos.setEnabled(false);
 	}
 	
 	public void setActionListener(ActionListener actionlistener) {
 		this.btnFinalizarPedidos.addActionListener(actionlistener);
 		this.btnSolicitarViaje.addActionListener(actionlistener);
+		this.btnPagarViaje.addActionListener(actionlistener);
 		this.btnLogin.addActionListener(actionlistener);
 		this.btnRegistrarse.addActionListener(actionlistener);
+		this.persistir.addActionListener(actionlistener);
 	}
 
 	@Override
@@ -460,5 +476,25 @@ public class VentanaLogin extends JFrame implements KeyListener, IVista{
 
 	public String getZona() {
 		return this.buttonGroup.getSelection().getActionCommand();
+	}
+
+	public String getNombreRegistrado() {
+		return this.textFieldRgeistNbre.getText();
+	}
+
+	public String getUsuarioRegistrado() {
+		return this.textFieldRegistUsuario.getText();
+	}
+
+	public String getContraseniaRegistrado() {
+		return this.textFieldRegistContras.getText();
+	}
+
+	public String getUsuarioLogeado() {
+		return this.textFieldLoginUsuario.getText();
+	}
+
+	public String getContraseniaLogeado() {
+		return this.textFieldLoginContras.getText();
 	}
 }

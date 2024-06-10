@@ -66,4 +66,16 @@ public class EmpresaDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public static void despersistir() {
+		IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+		EmpresaDAO dao = new EmpresaDAO(persistencia);
+		dao.deserializar();
+	}
+
+	public static void persistir(Empresa empresa) {
+		IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+		EmpresaDAO dao = new EmpresaDAO(persistencia);
+		dao.serializar(empresa);
+	}
 }

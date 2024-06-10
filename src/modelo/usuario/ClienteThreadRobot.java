@@ -1,6 +1,7 @@
 package modelo.usuario;
 
 import excepciones.PedidoRechazadoException;
+import excepciones.SinChoferesException;
 import modelo.sistema.RecursoCompartido;
 import modelo.sistema.Simulacion;
 import modelo.sistema.Util;
@@ -37,9 +38,9 @@ public class ClienteThreadRobot extends ClienteThread {
 				IViaje viaje = SubsistemaViaje.solicitarViaje(rc, getCliente(), distancia, zona, cantPersonas, equipaje, mascota);
 				super.setViaje(viaje);
 				Util.espera();
-				rc.pagar(this);
+				rc.pagar(this.getViaje());
 				viajesRestantes--;
-			} catch (PedidoRechazadoException e) {
+			} catch (PedidoRechazadoException | SinChoferesException e) {
 			}
 		}
 		

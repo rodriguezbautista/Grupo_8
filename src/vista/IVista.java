@@ -16,6 +16,10 @@ public interface IVista {
 	boolean getUsaBaul();
 	boolean getLlevaMascota();
 	String getZona();
-	public void start();
 	public void setVisible(boolean b);
+	public String getNombreRegistrado();
+	public String getUsuarioRegistrado();
+	public String getContraseniaRegistrado();
+	public String getUsuarioLogeado();
+	public String getContraseniaLogeado();
 }
